@@ -1,0 +1,178 @@
+{
+    "status": 200,
+    "message": "success",
+    "result": [
+        {
+            "id": "125909152017944576",
+            "parentId": "",
+            "name": "starlink",
+            "showAlways": true,
+            "type": -1,
+            "title": "积分管理系统",
+            "path": "",
+            "component": "",
+            "icon": "md-home",
+            "url": "",
+            "buttonType": "",
+            "children": [
+                {
+                    "id": "306617415754584063",
+                    "parentId": "125909152017944572",
+                    "name": "product",
+                    "showAlways": false,
+                    "type": 0,
+                    "title": "积分列表",
+                    "path": "/product",
+                    "component": "Main",
+                    "icon": "md-add-circle",
+                    "url": null,
+                    "buttonType": "",
+                    "level": "1",
+                    "children": [
+                        {
+                            "id": "306618021839900671",
+                            "parentId": "306617415754584062",
+                            "name": "companyProduct",
+                            "showAlways": true,
+                            "type": 0,
+                            "title": "积分列表",
+                            "path": "/companyProduct",
+                            "component": "sorce/sorce",
+                            "icon": "md-cloud-done",
+                            "url": "",
+                            "buttonType": "",
+                            "children": null,
+                            "permTypes": []
+                        }
+                    ],
+                    "permTypes": null
+                },
+                {
+                    "id": "306617415754584063",
+                    "parentId": "125909152017944572",
+                    "name": "otherProduct",
+                    "showAlways": false,
+                    "type": 0,
+                    "title": "等级管理",
+                    "path": "/product",
+                    "component": "Main",
+                    "icon": "md-add-circle",
+                    "url": null,
+                    "buttonType": "",
+                    "level": "1",
+                    "children": [
+                        {
+                            "id": "306618021839900671",
+                            "parentId": "306617415754584062",
+                            "name": "outerProduct",
+                            "showAlways": true,
+                            "type": 0,
+                            "title": "等级管理",
+                            "path": "/outerProduct",
+                            "component": "sorce/grade",
+                            "icon": "md-cloud",
+                            "url": "",
+                            "buttonType": "",
+                            "children": null,
+                            "permTypes": []
+                        }
+                    ],
+                    "permTypes": null
+                },
+                {
+                    "id": "306617415754584063",
+                    "parentId": "125909152017944572",
+                    "name": "ad",
+                    "showAlways": false,
+                    "type": 0,
+                    "title": "愿望管理",
+                    "path": "/ad",
+                    "component": "Main",
+                    "icon": "md-add-circle",
+                    "url": null,
+                    "buttonType": "",
+                    "level": "1",
+                    "children": [
+                        {
+                            "id": "306618021839900671",
+                            "parentId": "306617415754584062",
+                            "name": "ad_fiter",
+                            "showAlways": true,
+                            "type": 0,
+                            "title": "愿望管理",
+                            "path": "/fiter",
+                            "component": "sorce/wish",
+                            "icon": "md-radio",
+                            "url": "",
+                            "buttonType": "",
+                            "children": null,
+                            "permTypes": []
+                        }
+                    ],
+                    "permTypes": null
+                },
+                {
+                    "id": "306617415754584064",
+                    "parentId": "125909152017944576",
+                    "name": "accountMangament",
+                    "showAlways": true,
+                    "type": 0,
+                    "title": "账户管理",
+                    "path": "/accountManage",
+                    "component": "Main",
+                    "icon": "md-people",
+                    "url": null,
+                    "buttonType": "",
+                    "children": [
+                        {
+                            "id": "306618021839900672",
+                            "parentId": "306617415754584064",
+                            "name": "domainManagement",
+                            "showAlways": true,
+                            "type": 0,
+                            "title": "添加账户",
+                            "path": "addAccount",
+                            "component": "accountManage/addAccount",
+                            "icon": "md-person-add",
+                            "url": "",
+                            "buttonType": "",
+                            "children": null,
+                            "permTypes": []
+                        },
+                        {
+                            "id": "306618315210493952",
+                            "parentId": "306617415754584064",
+                            "name": "companyMangement",
+                            "showAlways": true,
+                            "type": 0,
+                            "title": "账户列表",
+                            "path": "listAccount",
+                            "component": "accountManage/accountTable",
+                            "icon": "ios-contact",
+                            "url": null,
+                            "buttonType": "",
+                            "children": null,
+                            "permTypes": []
+                        },
+                        {
+                            "id": "306619592413810688",
+                            "parentId": "306617415754584064",
+                            "name": "accountAd",
+                            "showAlways": true,
+                            "type": 0,
+                            "title": "修改密码",
+                            "path": "changePassword",
+                            "component": "change-pass/change-pass",
+                            "icon": "md-lock",
+                            "url": "",
+                            "buttonType": "",
+                            "children": null,
+                            "permTypes": []
+                        }
+                    ],
+                    "permTypes": null
+                }
+            ]
+        }
+    ]
+}
