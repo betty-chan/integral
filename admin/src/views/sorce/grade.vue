@@ -133,13 +133,13 @@ export default {
         },
         {
           title: "创建时间",
-          key: "createdAt",
+          key: "created_at",
           sortable: true,
           sortType: "desc",
         },
         {
           title: "更新时间",
-          key: "updatedAt",
+          key: "updated_at",
           sortable: true,
         },
         {

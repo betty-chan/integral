@@ -3,7 +3,7 @@ const CompressionPlugin = require('compression-webpack-plugin');
 module.exports = {
     devServer: {
         host: '127.0.0.1',
-        port: 9999,
+        port: 7000,
         proxy: {
             '/xboot': {
                 target: 'http://127.0.0.1:7001',

@@ -32,14 +32,38 @@ module.exports = app => {
     updated_at: {
       type: DataTypes.DATE,
       allowNull: true
-    }
+    },
+    // toJSON: {
+    //   type: DataTypes.VIRTUAL,
+    //   get: function () {
+    //     var values = app.model.dataValues();
+    //     if (values.t_user instanceof Object) {
+    //       let keys = Object.keys(values.t_user);
+    //       keys.forEach((item) => {
+    //         values[item] = item;
+    //       })
+    //     }
+    //     return values;
+    //   }
+    // }
   }, {
     tableName: 't_sorce',
     timestamps: false,
+    // getterMethods: {
+    //   toJSON: function () {
+    //     var values = app.Sequelize.getDataValue();
+    //     if (values.t_user instanceof Object) {
+    //       let keys = Object.keys(values.t_user);
+    //       keys.forEach((item) => {
+    //         values[item] = item;
+    //       })
+    //     }
+    //     return values;
+    //   }
+    // },
   });
 
   Model.associate = function () {
-
   }
 
   return Model;

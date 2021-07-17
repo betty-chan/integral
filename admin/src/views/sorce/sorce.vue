@@ -152,7 +152,7 @@ export default {
       columns: [
         {
           title: "名称",
-          key: "user.username",
+          key: "username",
         },
         {
           title: "类别",
@@ -160,7 +160,7 @@ export default {
         },
         {
           title: "分值",
-          key: "value",
+          key: "sorce",
           sortable: true,
         },
         {
@@ -169,7 +169,7 @@ export default {
         },
         {
           title: "创建时间",
-          key: "createTime",
+          key: "created_at",
           sortable: true,
           sortType: "desc",
         },

@@ -1,12 +1,46 @@
 import { Service } from 'egg';
 import { sroceUserParams } from './type/sroce-interface'
 
+function flattenObj(values) {
+    let keys1 = Object.keys(values);
+    keys1.forEach((key) => {
+        let name = key.split(".");
+        let item = ""
+        key.split(".").length && (item = name[name.length - 1]);
+        if (!values[item]) {
+            values[item] = values[key];
+            delete values[key]
+        }
+    });
+    return values;
+}
 export default class sroceService extends Service {
     /*
      * 分页查询
      */
     public async findSorce(query, page) {
         let { ctx } = this
+        ctx.model.TSorce.belongsTo(ctx.model.TUser, {
+            foreignKey: "user_id",
+            targetKey: "id",
+            constraints: false,
+        })
+        let result = await ctx.model.TSorce.findAndCountAll({
+            where: query,
+            offset: page.pageNumber - 1,
+            limit: +page.pageSize,
+            raw: true,//表明返回的数据是json而不是model
+            include: [
+                {
+                    model: ctx.model.TUser,
+                    attributes: ['username'],
+                }
+            ],
+        })
+        result.rows.forEach((element) => {
+            flattenObj(element)
+        });
+        return result;
         // if (query.type && query.userid && page.pageNumber) {
         //     let result: any = {
         //         rows: [],
@@ -33,22 +67,6 @@ export default class sroceService extends Service {
         //     return result
         // }
         // return null;
-        ctx.model.TSorce.belongsTo(ctx.model.TUser, {
-            as: 'user',
-            foreginkey: "user_id",
-            constraints: false
-        })
-        return await ctx.model.TSorce.findAndCountAll({
-            where: query,
-            offset: page.pageNumber - 1,
-            limit: +page.pageSize,
-            include: [
-                {
-                    association: 'user',
-                    attributes: ['username', "id"],
-                }
-            ]
-        })
     }
 
     /*
