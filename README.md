@@ -6,7 +6,7 @@
 ## 功能说明
   本项目主要打造了家庭中的流通“货币”——积分系统，项目分为client、admin、service三个子项目。目的是实现儿童通过正向的行为获取积分增长，可获取一些行为特权、愿望实现、积分兑换等功能。
   > 如果对您有帮助，您可以点右上角 "Star" 支持一下 谢谢！ ^_^
-  > 如果你也想参与请fork项目
+  > 如果你也想参与，请fork项目并和一起交流吧
 
 ## 目标功能
 对于admin
@@ -36,11 +36,8 @@
 
 
 ## 运行项目
-
-因前后端不同端口原因，为解决跨域。前端工程启动了devServer，需先启动后端工程
-
-* git clone https://github.com/zhoushaw/Instagram.git
-* cd Instagram
+* git clone https://github.com/betty-chan/integral
+* cd integral
 
 > 运行service项目
 
@@ -48,7 +45,7 @@
 * mysql -u root -p 并输入数据库密码
 * create database learn; 创建learn数据库
 * use learn;  切换数据库
-* source learn.sql的路径; 例如：source /Users/shawzhou/Desktop/learning/instagram/db/learn.sql;
+* source integral.sql的路径; 例如：source /integral/db/integral.sql;
 * 配置egg.js连接数据库信息
 
 ```javascript
@@ -57,7 +54,7 @@ config.sequelize = {
     dialect: 'mysql',
     host: '127.0.0.1',
     port: 3306,
-    database: 'learn',
+    database: 'integral',
     username: '', 
     password: '', 
     operatorsAliases: false
@@ -67,35 +64,25 @@ config.sequelize = {
 * 配置七牛云上传鉴权信息
 
 ```javascript
-
 // 前往/service/app/service/qiniu.ts，配置你的七牛云获取token信息
 export default class qiniuService extends Service {
     // 前往七牛云的个人面板=>秘钥管理查看
     private accessKey: string = ''; // 秘钥
     private secretKey: string = ''; // 秘钥
     private publicBucketDomain = ''; // 外链默认域名
-
     private options: qiniuOptioin = {
         scope: '', // 上传空间
         expires: 7200
     }
-
-    // ....
 }
-
 // 七牛云存储空间区设置，前往/client/src/components/upload/index.js，配置上传区
 class Upload extends React.Component{
-
-
     uploadFn = async () => {
-        // ...
         var config = {
             region: qiniu.region.z0 // 所属区，可前往七牛云文档查看
         };
-        // ...
 }
 ```
-
 
 * cd service
 * npm install
@@ -113,4 +100,4 @@ class Upload extends React.Component{
 * npm install
 * npm run dev
 
-# 运营说明
+# 项目运营说明
