@@ -1,0 +1,123 @@
+{
+	"pages": [{
+			//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+			"path": "pages/new/new",
+			"style": {
+				"navigationBarTitleText": "最新",
+				"enablePullDownRefresh": true,
+				"titleNView": false 
+			}
+		},
+		{
+			"path": "pages/hot/hot",
+			"style": {
+				"navigationBarTitleText": "最热",
+				"enablePullDownRefresh": true,
+				"titleNView": false 
+			}
+		},
+		{
+			"path": "pages/detail/detail",
+			"style": {
+				"navigationBarTitleText": "详情",
+				"navigationBarBackgroundColor": "#000000",
+				"backgroundColor": "#000000",
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {
+						"buttons": [{
+							"type": "share"
+						}]
+					}
+				},
+				"h5": {
+					"titleNView": {
+						"buttons": [{
+								"type": "share"
+							},
+							{
+								"type": "favorite"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/tag/tag",
+			"style": {
+				"titleNView": false ,
+				"navigationBarTitleText": "分类"
+			}
+		},
+		{
+			"path": "pages/list/list",
+			"style": {
+				"navigationBarTitleText": "专题",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/center/center",
+			"style": {
+				"navigationBarTitleText": "个人中心",
+				"titleNView": false 
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "platforms/app-plus/about/about",
+			"style": {
+				"navigationBarTitleText": "关于"
+			}
+		},
+		{
+			"path": "platforms/h5/about/about",
+			"style": {
+				"navigationBarTitleText": "关于"
+			}
+		},
+		{
+			"path": "platforms/app-plus/grade",
+			"style": {
+				"navigationBarTitleText": "等级"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "家庭积分",
+		"navigationBarBackgroundColor": "#00aaff",
+		"backgroundColor": "#EFEFEF"
+	},
+	"tabBar": {
+		"color": "#444444",
+		"selectedColor": "#00aaff",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+				"pagePath": "pages/new/new",
+				"iconPath": "static/home-0.png",
+				"selectedIconPath": "static/home-1.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/tag/tag",
+				"iconPath": "static/wishwall-0.png",
+				"selectedIconPath": "static/wishwall-1.png",
+				"text": "星愿"
+			},
+			{
+				"pagePath": "pages/center/center",
+				"iconPath": "static/center-0.png",
+				"selectedIconPath": "static/center-1.png",
+				"text": "我的"
+			}
+		]
+	}
+}
