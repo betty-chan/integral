@@ -12,7 +12,7 @@
           <FormItem label="人员" prop="12">
             <Select
               style="width: 150px"
-              v-model="searchForm.userid"
+              v-model="searchForm.user_id"
               placeholder="请选择"
               clearable
               filterable
@@ -44,6 +44,9 @@
           <Button @click="handleSearch" type="primary">搜索</Button>
         </Row>
       </Form>
+      <Row>
+        <Alert show-icon> 总计:{{ sum }} </Alert>
+      </Row>
       <Row class="operation">
         <Button @click="add" type="primary" icon="md-add">添加</Button>
       </Row>
@@ -81,8 +84,20 @@
       :width="500"
     >
       <Form ref="form" :model="form" :label-width="80" :rules="formValidate">
-        <FormItem label="名称" prop="name">
-          <Input v-model="form.name" />
+        <FormItem label="人员" prop="user_id">
+          <Select
+            v-model="form.user_id"
+            placeholder="请选择"
+            clearable
+            filterable
+          >
+            <Option
+              v-for="(item, index) in userList"
+              :key="index"
+              :value="item.id"
+              >{{ item.name }}</Option
+            >
+          </Select>
         </FormItem>
         <FormItem label="类别" prop="type">
           <Select v-model="form.type" placeholder="请选择" clearable filterable>
@@ -94,11 +109,11 @@
             >
           </Select>
         </FormItem>
-        <FormItem label="分值" prop="value">
-          <Input v-model="form.value" />
+        <FormItem label="分值" prop="sorce">
+          <Input v-model="form.sorce" />
         </FormItem>
-        <FormItem label="说明" prop="name">
-          <Input v-model="form.name" />
+        <FormItem label="说明" prop="description">
+          <Input v-model="form.description" />
         </FormItem>
       </Form>
       <div slot="footer">
@@ -127,7 +142,7 @@ export default {
         type: [{ required: true, message: "不能为空", trigger: "change" }],
         userid: [{ required: true, message: "不能为空", trigger: "change" }],
       },
-      userList: [{ name: "陈欣", id: "1993" }],
+      userList: [],
       typeList: [
         { name: "等级", id: "1" },
         { name: "兑换", id: "2" },
@@ -136,12 +151,13 @@ export default {
       modalVisible: false, // 添加或编辑显示
       modalTitle: "", // 添加或编辑标题
       form: {
-        // 添加或编辑表单对象初始化数据
-        name: "",
+        user_id: null,
+        type: null,
+        value: null,
+        description: null,
       },
-      // 表单验证规则
       formValidate: {
-        name: [{ required: true, message: "不能为空", trigger: "change" }],
+        user_id: [{ required: true, message: "不能为空", trigger: "change" }],
       },
       submitLoading: false, // 添加或编辑提交状态
       selectList: [], // 多选数据
@@ -151,7 +167,7 @@ export default {
       whiteColumns: ["action"],
       columns: [
         {
-          title: "名称",
+          title: "人员",
           key: "username",
         },
         {
@@ -177,6 +193,7 @@ export default {
       columnChange: false,
       data: [], // 表单数据
       total: 0, // 表单数据总数
+      sum: null,
     };
   },
   // 表格动态列 计算属性
@@ -187,7 +204,13 @@ export default {
     },
   },
   methods: {
-    init() {},
+    init() {
+      this.getRequest("/user/list").then((res) => {
+        if (res.success) {
+          this.userList = res.data;
+        }
+      });
+    },
     changeColumns(v) {
       this.columns.map((item) => {
         let hide = true;
@@ -233,6 +256,11 @@ export default {
           this.total = res.data.count;
         }
       });
+      this.getRequest("/sorce/sum", this.searchForm).then((res) => {
+        if (res.success) {
+          this.sum = res.data || 0;
+        }
+      });
     },
     handleSearch() {
       this.$refs.searchForm.validate((valid) => {
@@ -249,22 +277,16 @@ export default {
         if (valid) {
           this.submitLoading = true;
           if (this.modalType == 0) {
-            // 添加 避免编辑后传入id等数据 记得删除
             delete this.form.id;
-            // this.postRequest("请求地址", this.form).then(res => {
-            //   this.submitLoading = false;
-            //   if (res.success) {
-            //     this.$Message.success("操作成功");
-            //     this.getDataList();
-            //     this.modalVisible = false;
-            //   }
-            // });
-            // 模拟请求成功
-            this.submitLoading = false;
-            this.$Message.success("操作成功");
-            this.getDataList();
-            this.modalVisible = false;
           }
+          this.postRequest("/sorce/edit", this.form).then((res) => {
+            this.submitLoading = false;
+            if (res.success) {
+              this.$Message.success("操作成功");
+              this.getDataList();
+              this.modalVisible = false;
+            }
+          });
         }
       });
     },

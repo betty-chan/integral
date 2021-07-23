@@ -20,31 +20,20 @@ router.beforeEach((to, from, next) => {
     ViewUI.LoadingBar.start();
     Util.title(to.meta.title);
     var name = to.name;
-    if (Cookies.get('locking') == '1' && name !== 'locking') {
-        // 判断当前是否是锁定状态
+    var whiteList = ["login", 'regist', 'regist-result', 'authorize'];
+    if (!Cookies.get('userInfo') && whiteList.indexOf(name) == -1) {
+        // 判断是否已经登录且前往的页面不是登录页
         next({
-            replace: true,
-            name: 'locking'
+            name: 'login'
         });
-    } else if (Cookies.get('locking') == '0' && name == 'locking') {
-        next(false);
+    } else if (Cookies.get('userInfo') && name == 'login') {
+        // 判断是否已经登录且前往的是登录页
+        Util.title();
+        next({
+            name: 'home_index'
+        });
     } else {
-        // 白名单
-        var whiteList = name != 'login' && name != 'regist' && name != 'regist-result' && name != 'authorize';
-        if (!Cookies.get('userInfo') && whiteList) {
-            // 判断是否已经登录且前往的页面不是登录页
-            next({
-                name: 'login'
-            });
-        } else if (Cookies.get('userInfo') && name == 'login') {
-            // 判断是否已经登录且前往的是登录页
-            Util.title();
-            next({
-                name: 'home_index'
-            });
-        } else {
-            Util.toDefaultPage([...routers], name, router, next);
-        }
+        Util.toDefaultPage([...routers], name, router, next);
     }
 });
 

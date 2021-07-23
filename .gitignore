@@ -3,3 +3,4 @@
 /service/logs
 /service/run
 /client/dist
+/clients/node_modules

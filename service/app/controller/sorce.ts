@@ -6,18 +6,29 @@ class SorceController extends Controller {
         const { ctx } = this
         const query = ctx.request.query
         let params = {};
-        if (query.type && query.userid) {
-            params = { type: query.type, user_id: query.userid }
+        if (query.type && query.user_id) {
+            params = { type: query.type, user_id: query.user_id }
         }
         let result = await ctx.service.sorce.findSorce(params, query)
         ctx.returnBody(200, "操作成功", result)
     }
     //列表添加或修改
-    public async eidt() {
+    public async edit() {
         const { ctx } = this
         const garde = ctx.request.body
-        await ctx.service.sorce.addSorce(garde)
-        ctx.returnBody(200, "操作成功")
+        let result = await ctx.service.sorce.addSorce(garde)
+        ctx.returnBody(200, "操作成功", result)
+    }
+    //求和
+    public async sumSorce() {
+        const { ctx } = this
+        const query = ctx.request.query
+        let params = {};
+        if (query.type && query.user_id) {
+            params = { type: query.type, user_id: query.user_id }
+        }
+        let result = await ctx.service.sorce.sumSorce(params)
+        ctx.returnBody(200, "操作成功", result)
     }
 }
 module.exports = SorceController

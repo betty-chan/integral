@@ -45,7 +45,7 @@
                       autocomplete="off"
                     />
                   </FormItem>
-                  <FormItem prop="imgCode">
+                  <FormItem>
                     <Row
                       type="flex"
                       justify="space-between"
@@ -257,7 +257,7 @@ export default {
           if (valid) {
             this.loading = true;
             login({
-              username: this.form.username,
+              email: this.form.username,
               password: this.form.password,
               code: this.form.imgCode,
               captchaId: this.captchaId,

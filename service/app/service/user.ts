@@ -24,7 +24,7 @@ export default class UserService extends Service {
         const { ctx } = this
         // 添加uuid
         user.userId = uuid.v4().replace(/-/g, '')
-        const userInfo = await this.ctx.model.User.create(user);
+        const userInfo = await this.ctx.model.TUser.create(user);
         // 注册成功，返回userid给前端
         ctx.status = 200;
         ctx.returnBody(200, "注册成功", {
@@ -65,7 +65,7 @@ export default class UserService extends Service {
      */
     public async getUserByUserId(userId) {
         const query = { userId: userId };
-        return this.ctx.model.User.findOne({
+        return this.ctx.model.TUser.findOne({
             where: query
         })
     }
@@ -76,7 +76,7 @@ export default class UserService extends Service {
      * @return {Promise[user]} 承载用户的 Promise 对象
      */
     public async getUserByMail(email) {
-        return this.ctx.model.User.findOne({
+        return this.ctx.model.TUser.findOne({
             where: {
                 email
             }
@@ -89,7 +89,7 @@ export default class UserService extends Service {
      * @return {Promise[user]} 承载用户的 Promise 对象
      */
     public async updateUserInfo(query, updateValue) {
-        return this.ctx.model.User.update(updateValue, {
+        return this.ctx.model.TUser.update(updateValue, {
             where: query
         })
     }
@@ -99,8 +99,8 @@ export default class UserService extends Service {
      * @return {Promise[user]} 承载用户的 Promise 对象
      */
     public async getUserList() {
-        return this.ctx.model.Follow.findAll({
-            attributes: ['id', 'username']
+        return this.ctx.model.TUser.findAll({
+            attributes: ['id', ['username', 'name']]
         })
     }
 }

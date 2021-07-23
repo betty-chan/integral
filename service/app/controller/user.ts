@@ -6,6 +6,7 @@ class UserController extends Controller {
     public async userInfo() {
         const { ctx } = this
         let userId = ctx.query.userId || ctx.user.userId
+        console.log(ctx.user);
         // 获取并填充数据
         let user = await this.service.user.getUserByUserId(userId)
         let userInfo = {
@@ -18,6 +19,13 @@ class UserController extends Controller {
             sex: user.sex,
             userId: user.userId
         }
+        ctx.returnBody(200, "获取成功", userInfo)
+    }
+
+    // 获取用户信息
+    public async getUserList() {
+        const { ctx } = this;
+        let userInfo = await this.service.user.getUserList()
         ctx.returnBody(200, "获取成功", userInfo)
     }
 

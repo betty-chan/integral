@@ -6,7 +6,6 @@ module.exports = app => {
   const Model = app.model.define('t_sorce', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       primaryKey: true
     },
     user_id: {
@@ -19,9 +18,13 @@ module.exports = app => {
     },
     created_at: {
       type: DataTypes.DATE,
-      allowNull: true
+      defaultValue: DataTypes.NOW
     },
     description: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    status: {
       type: DataTypes.STRING(255),
       allowNull: true
     },
@@ -31,7 +34,7 @@ module.exports = app => {
     },
     updated_at: {
       type: DataTypes.DATE,
-      allowNull: true
+      defaultValue: DataTypes.NOW
     },
     // toJSON: {
     //   type: DataTypes.VIRTUAL,

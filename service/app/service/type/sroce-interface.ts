@@ -1,6 +1,7 @@
 export interface sroceUserParams {
     id: number,
-    userId: string, // 用户名
+    user_id: string, // 用户名
+    sorce: number, // 积分要求
     type: string, // 积分类别
     description: string,//积分说明
 }

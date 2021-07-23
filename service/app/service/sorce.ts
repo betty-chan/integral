@@ -25,6 +25,7 @@ export default class sroceService extends Service {
             targetKey: "id",
             constraints: false,
         })
+        console.log(query);
         let result = await ctx.model.TSorce.findAndCountAll({
             where: query,
             offset: page.pageNumber - 1,
@@ -74,8 +75,9 @@ export default class sroceService extends Service {
      */
     public async sumSorce(query) {
         let { ctx } = this
-        return await ctx.model.TSorce.sum('sroce', {
-            where: query
+        return await ctx.model.TSorce.sum('sorce', {
+            where: query,
+            raw: true,
         })
     }
 

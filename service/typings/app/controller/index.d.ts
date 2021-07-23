@@ -8,6 +8,7 @@ import ExportLogin from '../../../app/controller/login';
 import ExportSorce from '../../../app/controller/sorce';
 import ExportTopic from '../../../app/controller/topic';
 import ExportUser from '../../../app/controller/user';
+import ExportWish from '../../../app/controller/wish';
 
 declare module 'egg' {
   interface IController {
@@ -17,5 +18,6 @@ declare module 'egg' {
     sorce: ExportSorce;
     topic: ExportTopic;
     user: ExportUser;
+    wish: ExportWish;
   }
 }

@@ -11,6 +11,7 @@ import ExportQiniu from '../../../app/service/qiniu';
 import ExportSorce from '../../../app/service/sorce';
 import ExportTopic from '../../../app/service/topic';
 import ExportUser from '../../../app/service/user';
+import ExportWish from '../../../app/service/wish';
 import ExportTypeSroceInterface from '../../../app/service/type/sroce-interface';
 import ExportTypeTopicInterface from '../../../app/service/type/topic-interface';
 
@@ -21,6 +22,7 @@ declare module 'egg' {
     sorce: AutoInstanceType<typeof ExportSorce>;
     topic: AutoInstanceType<typeof ExportTopic>;
     user: AutoInstanceType<typeof ExportUser>;
+    wish: AutoInstanceType<typeof ExportWish>;
     type: {
       sroceInterface: AutoInstanceType<typeof ExportTypeSroceInterface>;
       topicInterface: AutoInstanceType<typeof ExportTypeTopicInterface>;

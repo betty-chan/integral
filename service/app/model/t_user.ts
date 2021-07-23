@@ -9,6 +9,10 @@ module.exports = app => {
       allowNull: false,
       primaryKey: true
     },
+    email: {
+      type: DataTypes.STRING(255),
+      allowNull: false
+    },
     username: {
       type: DataTypes.STRING(255),
       allowNull: false

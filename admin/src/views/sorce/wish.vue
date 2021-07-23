@@ -1,6 +1,9 @@
 <template>
   <div class="search">
     <Card>
+      <Row class="operation">
+        <Button @click="getDataList" icon="md-refresh">刷新</Button>
+      </Row>
       <Row>
         <Table
           :loading="loading"
@@ -51,18 +54,17 @@ export default {
           align: "center",
         },
         {
-          title: "名称",
-          key: "name",
-          sortable: true,
+          title: "人员",
+          key: "user_id",
         },
         {
           title: "说明",
-          key: "sex",
+          key: "description",
           sortable: true,
         },
         {
           title: "创建时间",
-          key: "createTime",
+          key: "create_at",
           sortable: true,
           sortType: "desc",
         },
@@ -113,32 +115,13 @@ export default {
     },
     getDataList() {
       this.loading = true;
-      // 请求后端获取表单数据 请自行修改接口
-      // this.getRequest("请求路径", this.searchForm).then(res => {
-      //   this.loading = false;
-      //   if (res.success) {
-      //     this.data = res.result.content;
-      //     this.total = res.result.totalElements;
-      //   }
-      // });
-      this.data = [
-        {
-          id: "1",
-          name: "XBoot",
-          sex: "男",
-          createTime: "2018-08-08 00:08:00",
-          updateTime: "2018-08-08 00:08:00",
-        },
-        {
-          id: "2",
-          name: "Exrick",
-          sex: "女",
-          createTime: "2018-08-08 00:08:00",
-          updateTime: "2018-08-08 00:08:00",
-        },
-      ];
-      this.total = this.data.length;
-      this.loading = false;
+      this.getRequest("/wish/list", this.searchForm).then((res) => {
+        this.loading = false;
+        if (res.success) {
+          this.data = res.data.rows;
+          this.total = res.data.total;
+        }
+      });
     },
     remove(v) {
       this.$Modal.confirm({
@@ -165,3 +148,8 @@ export default {
   },
 };
 </script>
+<style>
+.operation {
+  margin-bottom: 5px;
+}
+</style>
