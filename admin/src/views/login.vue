@@ -45,7 +45,7 @@
                       autocomplete="off"
                     />
                   </FormItem>
-                  <FormItem>
+                  <!-- <FormItem>
                     <Row
                       type="flex"
                       justify="space-between"
@@ -72,10 +72,10 @@
                         />
                       </div>
                     </Row>
-                  </FormItem>
+                  </FormItem> -->
                 </Form>
               </TabPane>
-              <TabPane
+              <!-- <TabPane
                 :label="$t('mobileLogin')"
                 name="mobile"
                 icon="ios-phone-portrait"
@@ -118,7 +118,7 @@
                     </Row>
                   </FormItem>
                 </Form>
-              </TabPane>
+              </TabPane> -->
             </Tabs>
 
             <Row type="flex" justify="space-between" align="middle">
@@ -189,8 +189,8 @@ export default {
       sending: false,
       errorCode: "",
       form: {
-        username: "admin、test、test2（支持邮箱/手机登录）",
-        password: "123456",
+        username: null,
+        password: null,
         mobile: "",
         code: "",
       },
@@ -268,25 +268,23 @@ export default {
                 // 获取用户信息
                 userInfo().then((res) => {
                   if (res.success) {
-                    // 避免超过大小限制
-                    delete res.result.permissions;
-                    let roles = [];
-                    res.result.roles.forEach((e) => {
-                      roles.push(e.name);
-                    });
-                    delete res.result.roles;
-                    this.setStore("roles", roles);
+                    // let roles = [];
+                    // res.data.roles.forEach((e) => {
+                    //   roles.push(e.name);
+                    // });
+                    // delete res.data.roles;
+                    // this.setStore("roles", roles);
                     this.setStore("saveLogin", this.saveLogin);
                     if (this.saveLogin) {
                       // 保存7天
-                      Cookies.set("userInfo", JSON.stringify(res.result), {
+                      Cookies.set("userInfo", JSON.stringify(res.data), {
                         expires: 7,
                       });
                     } else {
-                      Cookies.set("userInfo", JSON.stringify(res.result));
+                      Cookies.set("userInfo", JSON.stringify(res.data));
                     }
-                    this.setStore("userInfo", res.result);
-                    this.$store.commit("setAvatarPath", res.result.avatar);
+                    this.setStore("userInfo", res.data);
+                    // this.$store.commit("setAvatarPath", res.data.avatar);
                     // 加载菜单
                     util.initRouter(this);
                     this.$router.push({

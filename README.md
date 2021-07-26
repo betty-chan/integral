@@ -6,7 +6,7 @@
 ## 功能说明
   本项目主要打造了家庭中的流通“货币”——积分系统，项目分为client、admin、service三个子项目。目的是实现儿童通过正向的行为获取积分增长，可获取一些行为特权、愿望实现、积分兑换等功能。
   > 如果对您有帮助，您可以点右上角 "Star" 支持一下 谢谢！ ^_^  
-  > 如果你也想参与，请fork项目并和一起交流吧
+  > 如果你也想参与，请fork项目并一起交流吧
 
 ## 目标功能
 对于admin
@@ -28,16 +28,17 @@
 - iview design
 
 对于client
-- react全家桶
-- ant design
-> 后面计划该项目使用Android/kotlin来实现
+> 该项目后面计划支持Android和IOS，技术栈会调整为flutter或者uniapp
 
 对于service
 - egg.js
 - mysql
 
 ## 部分功能截图
-
+### admin  
+待补充  
+### client  
+待补充  
 
 ## 运行项目
 * git clone https://github.com/betty-chan/integral
@@ -100,8 +101,6 @@ class Upload extends React.Component{
 
 > 运行client项目
 
-* cd client
-* npm install
-* npm run dev
+* 下载HBuilderX，打开项目，点击运行
 
 # 项目运营说明

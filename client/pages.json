@@ -3,51 +3,21 @@
 			//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 			"path": "pages/new/new",
 			"style": {
-				"navigationBarTitleText": "最新",
-				"enablePullDownRefresh": true,
+				"navigationBarTitleText": "首页",
 				"titleNView": false 
 			}
 		},
 		{
-			"path": "pages/hot/hot",
-			"style": {
-				"navigationBarTitleText": "最热",
-				"enablePullDownRefresh": true,
-				"titleNView": false 
-			}
-		},
-		{
-			"path": "pages/detail/detail",
-			"style": {
-				"navigationBarTitleText": "详情",
-				"navigationBarBackgroundColor": "#000000",
-				"backgroundColor": "#000000",
-				"app-plus": {
-					"bounce": "none",
-					"titleNView": {
-						"buttons": [{
-							"type": "share"
-						}]
-					}
-				},
-				"h5": {
-					"titleNView": {
-						"buttons": [{
-								"type": "share"
-							},
-							{
-								"type": "favorite"
-							}
-						]
-					}
-				}
-			}
-		},
-		{
-			"path": "pages/tag/tag",
+			"path": "pages/wish/list",
 			"style": {
 				"titleNView": false ,
-				"navigationBarTitleText": "分类"
+				"navigationBarTitleText": "星愿"
+			}
+		},
+		{
+			"path": "pages/wish/detail",
+			"style": {
+				"navigationBarTitleText": "许个星愿"
 			}
 		},
 		{
@@ -83,7 +53,7 @@
 			}
 		},
 		{
-			"path": "platforms/app-plus/grade",
+			"path": "platforms/app-plus/about/about",
 			"style": {
 				"navigationBarTitleText": "等级"
 			}
@@ -107,7 +77,7 @@
 				"text": "首页"
 			},
 			{
-				"pagePath": "pages/tag/tag",
+				"pagePath": "pages/wish/list",
 				"iconPath": "static/wishwall-0.png",
 				"selectedIconPath": "static/wishwall-1.png",
 				"text": "星愿"

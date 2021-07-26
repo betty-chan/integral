@@ -2,7 +2,6 @@
 const uuid = require('uuid');
 
 module.exports = app => {
-
     const localHandler = async (ctx, { username, password }) => {
         const getUser = username => {
             if (username.indexOf('@') > 0) {
@@ -11,12 +10,10 @@ module.exports = app => {
             return ctx.service.user.getUserByLoginName(username);
         };
         const existUser = await getUser(username);
-
         // 用户不存在
         if (!existUser) {
             return null;
         }
-
         const passhash = existUser.password;
         // TODO: change to async compare
         const equal = passhash == password
@@ -24,7 +21,6 @@ module.exports = app => {
         if (!equal) {
             return null;
         }
-
         // 验证通过
         return existUser;
     };
@@ -44,7 +40,6 @@ module.exports = app => {
             };
             ctx.cookies.set(app.config.auth_cookie_name, auth_token, opts); // cookie 有效期30天
         }
-
         return existUser;
     });
 };

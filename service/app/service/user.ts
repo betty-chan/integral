@@ -54,7 +54,7 @@ export default class UserService extends Service {
             return false
         }
         // 验证通过
-        const token = jwt.sign({ userId: existUser.userId, }, app.config.jwtSecret, { expiresIn: '7d' });
+        const token = jwt.sign({ userId: existUser.id, }, app.config.jwtSecret, { expiresIn: '7d' });
         return token;
     }
 
@@ -64,7 +64,7 @@ export default class UserService extends Service {
      * @return {Promise[user]} 承载用户的 Promise 对象
      */
     public async getUserByUserId(userId) {
-        const query = { userId: userId };
+        const query = { id: userId };
         return this.ctx.model.TUser.findOne({
             where: query
         })

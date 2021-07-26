@@ -21,7 +21,7 @@
 .card {
   position: relative;
   width: 710upx;
-  margin: 20upx 20upx 20upx 20upx;
+  margin: 40upx 20upx 20upx 20upx;
   border-radius: 10upx;
   overflow: hidden;
   flex-direction: column;
@@ -64,22 +64,13 @@
   font-size: 30upx;
   font-family: texticons;
 }
-.card-share-view:before {
-  content: '\e62d';
-}
-.car-title-view {
-  flex: 1;
-  padding: 14upx 0upx 14upx 20upx;
-}
 .card-title {
-  flex: 1;
   font-size: 30upx;
   text-align: left;
   color: #555555;
   text-overflow: ellipsis;
   lines: 2;
   white-space: normal;
-  display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
@@ -129,17 +120,11 @@ view.tag,
   box-sizing: border-box;
   text-align: center;
 }
-.tag-img {
-  border-radius: 60upx;
-  width: 120upx;
-  height: 120upx;
-}
 .tag-text {
   font-size: 28upx;
   color: #555555;
 }
 .tag-add {
-  color: #EEEEEE;
   position: fixed;
   bottom: 100upx;
   right: 5upx;
@@ -148,8 +133,7 @@ view.tag,
   width: 80upx;
   height: 80upx;
   border-radius: 40upx;
-  background-color: #00aaff;
-  color: #EEEEEE;
+  background-color: #ffca0b;
 }
 /* 个人中心 */
 .center {

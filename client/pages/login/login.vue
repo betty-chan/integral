@@ -4,17 +4,17 @@
 			<view class="label-view">
 				<text class="label">账号 </text>
 			</view>
-			<input class="input" type="text" placeholder="请输入用户名" name="nameValue" />
+			<input class="input" type="text" placeholder="请输入用户名" v-model="form.username" />
 		</view>
 		<view class="input-view">
 			<view class="label-view">
 				<text class="label">密码</text>
 			</view>
-			<input class="input" type="password" placeholder="请输入密码" name="passwordValue" />
+			<input class="input" type="password" placeholder="请输入密码" v-model="form.password"  />
 		</view>
 		<view class="button-view">
 			<button type="default" class="login" hover-class="hover" formType="submit">登录</button>
-			<button type="default" class="register" hover-class="hover" @click="register">免费注册</button>
+		<!-- 	<button type="default" class="register" hover-class="hover" @click="register">免费注册</button> -->
 		</view>
 	</form>
 </template>
@@ -22,11 +22,30 @@
 <script>
 	export default {
 		data() {
-			return {};
+			return {
+				form:{
+					username:null,
+					password:null,
+				}
+			};
 		},
 		methods: {
 			login(e) {
-				console.log("得到账号:"+ e.detail.value.nameValue + ';得到密码:' + e.detail.value.passwordValue)
+				uni.request({
+				    url: '/xboot/api/v2/login', 
+					method: "POST",
+					data:{
+					    email: this.form.username,
+					    password: this.form.password,
+					}
+				}).then((data)=>{
+					let [error, res]  = data;
+					res = res.data;
+					console.log(res.success);
+					if(res.success){
+						uni.navigateBack();
+					}
+				});
 			},
 			register() {
 				console.log("前往注册页面")

@@ -55,7 +55,7 @@ export default {
         },
         {
           title: "人员",
-          key: "user_id",
+          key: "username",
         },
         {
           title: "说明",

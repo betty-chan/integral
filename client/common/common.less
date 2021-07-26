@@ -26,7 +26,7 @@
 .card {
 	position: relative;
 	width: 710upx;
-	margin: 20upx 20upx 20upx 20upx;
+	margin: 40upx 20upx 20upx 20upx;
 	border-radius: 10upx;
 	overflow: hidden;
 	flex-direction: column;
@@ -44,22 +44,6 @@
 	text-align: center;
 }
 
-.card-num-view {
-	background-color: @theme;
-    line-height: 1;
-    display: inline-block;
-	padding: 3px 6px;
-    color: #FFFFFF;
-    font-size: 12px;
-    text-align: center;
-	justify-content: center;
-    align-items: center;
-	border-radius: 15px;
-	position: absolute;
-	top: 20upx;
-	right: 20upx;
-}
-
 .card-bottm {
 	justify-content: center;
 	align-items: center;
@@ -74,18 +58,7 @@
 	font-size: 30upx;
 	font-family: texticons;
 }
-
-.card-share-view:before {
-	content: '\e62d';
-}
-
-.car-title-view {
-	flex: 1;
-	padding: 14upx 0upx 14upx 20upx;
-}
-
 .card-title {
-	flex: 1;
 	font-size: 30upx;
 	text-align: left;
 	color: #555555;
@@ -93,7 +66,6 @@
 	lines: 2;
 	display: -webkit-box;
 	white-space: normal;
-	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 2;
 	overflow: hidden;
@@ -108,12 +80,10 @@
 
 
 /*双列表*/
-
 .card-list2 {
 	width: 345upx;
 	margin: 20upx 0 20upx 20upx;
 }
-
 .card-list2-img {
 	width: 345upx;
 	height: 517upx;
@@ -171,7 +141,6 @@ view.tag,.tag {
 	color: #555555;
 }
 .tag-add{
-	color: #EEEEEE;
 	position: fixed;
 	bottom: 100upx;
 	right: 5upx;
@@ -180,8 +149,7 @@ view.tag,.tag {
 	width: 80upx;
 	height: 80upx;
 	border-radius: 40upx;
-	background-color: @theme;
-	color: #EEEEEE;
+	background-color: #ffca0b;
 }
 
 
@@ -190,6 +158,7 @@ view.tag,.tag {
 /* 个人中心 */
 
 .center {
+	display: flex;
 	flex-direction: column;
     min-height: 100vh;
 }

@@ -25,7 +25,6 @@ export default class sroceService extends Service {
             targetKey: "id",
             constraints: false,
         })
-        console.log(query);
         let result = await ctx.model.TSorce.findAndCountAll({
             where: query,
             offset: page.pageNumber - 1,

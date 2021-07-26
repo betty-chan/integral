@@ -1,6 +1,6 @@
 {
-    "name" : "clients",
-    "appid" : "",
+    "name" : "client",
+    "appid" : "__UNI__C4F9D20",
     "description" : "图片App模版",
     "transformPx" : false,
     "icons" : [
@@ -11,6 +11,20 @@
     ],
     "versionName" : "1.0.0",
     "versionCode" : 100,
+	"h5" : {
+		"domain" : "127.0.0.1",
+		"devServer" : {
+			"proxy" : {
+				"/xboot" : {
+					"target" : "http://127.0.0.1:7000",
+					"changeOrigin" : true, 
+					"pathRewrite" : {
+						"^/api" : "/"
+					}
+				}
+			}
+		}
+	},
     "app-plus" : {},
     // 5+App特有相关
     "quickapp" : {},

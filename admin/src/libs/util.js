@@ -9,7 +9,7 @@ let util = {
 };
 
 util.title = function (title) {
-    title = title || 'XBoot一站式前后端分离快速开发平台';
+    title = title || ' 家庭慧';
     window.document.title = title;
 };
 
@@ -377,7 +377,7 @@ util.initRouterNode = function (routers, data) {
         let meta = {};
         // 给页面添加权限、标题、第三方网页链接
         meta.permTypes = menu.permTypes ? menu.permTypes : null;
-        meta.title = menu.title ? menu.title + " - XBoot一站式前后端分离快速开发平台 By: Exrick" : null;
+        meta.title = menu.title ? menu.title + " - 家庭慧" : null;
         meta.url = menu.url ? menu.url : null;
         menu.meta = meta;
 
