@@ -2,6 +2,7 @@
 // Do not modify this file!!!!!!!!!
 
 import 'egg';
+import ExportGoods from '../../../app/controller/goods';
 import ExportGrade from '../../../app/controller/grade';
 import ExportHandle from '../../../app/controller/handle';
 import ExportLogin from '../../../app/controller/login';
@@ -12,6 +13,7 @@ import ExportWish from '../../../app/controller/wish';
 
 declare module 'egg' {
   interface IController {
+    goods: ExportGoods;
     grade: ExportGrade;
     handle: ExportHandle;
     login: ExportLogin;

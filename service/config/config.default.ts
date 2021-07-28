@@ -9,7 +9,7 @@ export default (appInfo: EggAppInfo) => {
 
   // add your egg config in here
   config.middleware = [];
-  
+
   // add RESTful API base path
   config.basePath = '/api/v2'
 
@@ -23,7 +23,7 @@ export default (appInfo: EggAppInfo) => {
     }
   }
 
-  config.security= {
+  config.security = {
     csrf: {
       enable: false,
       ignoreJSON: true

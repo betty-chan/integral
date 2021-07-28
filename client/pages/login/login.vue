@@ -30,7 +30,7 @@
 			};
 		},
 		methods: {
-			login(e) {
+			login() {
 				uni.request({
 				    url: '/xboot/api/v2/login', 
 					method: "POST",
@@ -41,9 +41,26 @@
 				}).then((data)=>{
 					let [error, res]  = data;
 					res = res.data;
-					console.log(res.success);
 					if(res.success){
+						uni.setStorageSync('token',res.data.token);
+						this.getUserInfo();
 						uni.navigateBack();
+					}
+				});
+			},
+			getUserInfo(){
+				var token = uni.getStorageSync('token');
+				uni.request({
+				    url: '/xboot/api/v2/user/info', 
+					method: "GET",
+					header: {
+						token: token, //自定义请求头信息
+					},
+				}).then((data)=>{
+					let [error, res]  = data;
+					res = res.data;
+					if(res.success){
+						uni.setStorageSync('userInfo',JSON.stringify(res.data));
 					}
 				});
 			},

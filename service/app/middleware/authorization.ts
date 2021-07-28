@@ -7,9 +7,19 @@ module.exports = (option, app) => {
       await next(option)
       return
     }
-    
+
     if (ctx.cookies.get('token')) {
       let token = ctx.cookies.get('token')
+      //解码token
+      try {
+        ctx.jwt.verify(token, app.config.jwtSecret);
+      } catch (error) {
+        ctx.returnBody(401, "您未登录，请登录后再试")
+        return;
+      }
+      await next(option);
+    } else if (ctx.get('token')) {
+      let token = ctx.get('token')
       //解码token
       try {
         ctx.jwt.verify(token, app.config.jwtSecret);

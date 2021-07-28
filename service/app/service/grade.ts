@@ -28,4 +28,8 @@ export default class gradeService extends Service {
             return await ctx.model.TGrade.create(obj);
         }
     }
+    public async deleteGrade(query) {
+        let { ctx } = this
+        return await ctx.model.TGrade.destroy({ where: query });
+    }
 }

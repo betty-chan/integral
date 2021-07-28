@@ -2,7 +2,7 @@ import { Application, Router } from 'egg';
 
 export default (app: Application) => {
   const { controller } = app;
-  const { user, topic, handle, grade, sorce, login, wish } = controller
+  const { user, handle, grade, sorce, login, wish, goods } = controller
   const apiV2Router: Router = app.router.namespace('/api/v2');
 
   // login 
@@ -19,20 +19,15 @@ export default (app: Application) => {
   // handle
   apiV2Router.get('/handle/upload/get-token', handle.getQiniuToken); // 退出登录
 
-  // topic
-  apiV2Router.get('/topic/search', topic.searchTopic); // 新增帖子
-  apiV2Router.post('/topic/add', topic.addTopic); // 新增帖子
-  apiV2Router.post('/topic/delete', topic.deleteTopic); // 删除帖子
-  apiV2Router.get('/topic/detail', topic.topicDetail); // 获取帖子详情
-  apiV2Router.post('/topic/discuss/add', topic.addDiscuss); // 新增评论
-  apiV2Router.put('/topic/like', topic.putLikeTopic); // 点赞
-  apiV2Router.put('/topic/collect', topic.putCollectTopic); // 收藏
-  apiV2Router.get('/topic/friend/list', topic.friendsTopicList); // 查询帖子列表
-  // router.put('/user/findPwd', user.findPwd); // 找回密码
-
   // grade
   apiV2Router.get('/grade/list', grade.page); // 列表
   apiV2Router.post('/grade/edit', grade.edit); // 编辑
+  apiV2Router.get('/grade/delete', grade.delete);
+
+  // goods
+  apiV2Router.get('/goods/list', goods.page); // 列表
+  apiV2Router.post('/goods/edit', goods.edit); // 编辑
+  apiV2Router.get('/goods/delete', goods.delete);
 
   // sorce
   apiV2Router.get('/sorce/list', sorce.page); // 列表
@@ -40,5 +35,7 @@ export default (app: Application) => {
   apiV2Router.get('/sorce/sum', sorce.sumSorce); // 编辑
 
   //wish
-  apiV2Router.get('/wish/list', wish.page); // 编辑
+  apiV2Router.get('/wish/list', wish.page);
+  apiV2Router.post('/wish/add', wish.edit);
+  apiV2Router.get('/wish/delete', wish.delete);
 }

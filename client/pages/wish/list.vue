@@ -37,12 +37,26 @@
 		},
 		methods: {
 			init(){
+				this.getWishList();
+			},
+			getWishList(){
+				var token = uni.getStorageSync('token');
 				uni.request({
-				    url: '/xboot/api/v2/grade/list?pageNumber=1&pageSize=50&sort=createTime&order=desc', 
-					method: "GET"
-				}).then((res)=>{
+					url: '/xboot/api/v2/wish/list?pageNumber=1&pageSize=50&sort=createTime&order=desc', 
+					method: "GET",
+					header: {
+						token: token, //自定义请求头信息
+					},
+				}).then((data)=>{
+					let [error, res]  = data;
+					res = res.data;
 					if(res.success){
-						let data = res.data.rows
+						let data = res.data.rows.map((item)=>{
+							return {
+								description:item.description,
+								username:item.username
+							}
+						})
 						this.$refs.lBarrage.start(data);
 					}
 				});

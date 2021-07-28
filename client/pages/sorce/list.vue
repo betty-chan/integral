@@ -1,42 +1,45 @@
 <template>
 	<view>
-		<view style="width: 95%;margin: 10px;">
-			<textarea v-model="form.description" placeholder="" style="border:1px solid #c3c3c3;"/>
+		<view>
+			{{sum}}
 		</view>
 		<view>
-			<button type="default" @click="submit">确认</button>
+			
 		</view>
 	</view>
 </template>
 
 <script>
-	import lBarrage from '@/components/l-barrage/l-barrage.vue'
 	export default {
-		components:{lBarrage},
-		mounted() {
+		mounted(){
+			this.init()
+		},
+		onShow() {
 			this.init()
 		},
 		data() {
 			return {
-				form:{
-					description:null,
-					user_id:null,
-				}
+				uerInfo:{},
+				sum:0,
 			}
 		},
 		methods: {
 			init(){
 				var userInfo = JSON.parse(uni.getStorageSync('userInfo'));
 				if(userInfo){
-					this.form.user_id = userInfo.userId;
+					this.uerInfo = userInfo;
+					this.sumSorce()
 				}
 			},
-			submit(){
+			sumSorce(){
 				var token = uni.getStorageSync('token');
 				uni.request({
-					url: '/xboot/api/v2/wish/add', 
-					method: "POST",
-					data:this.form,
+					url: '/xboot/api/v2/sorce/sum', 
+					method: "GET",
+					data:{
+						type:2,
+						user_id: this.uerInfo.userId
+					},
 					header: {
 						token: token, //自定义请求头信息
 					},
@@ -44,7 +47,7 @@
 					let [error, res]  = data;
 					res = res.data;
 					if(res.success){
-						uni.navigateBack();
+						this.sum = res.data;
 					}
 				});
 			},
@@ -53,7 +56,5 @@
 </script>
 
 <style>
-uni-textarea{
-	width: 100%;
-}
+
 </style>

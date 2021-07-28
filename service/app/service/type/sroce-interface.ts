@@ -13,3 +13,17 @@ export interface gradeParams {
     description: string,//积分说明
     level: number
 }
+
+export interface wishParams {
+    id: number,
+    user_id: string, // 用户名
+    description: string,//说明
+}
+
+export interface goodsParams {
+    id: number,
+    title: string, // 标题
+    value: number, // 价值
+    description: string,//积分说明
+    on_shelf: number
+}

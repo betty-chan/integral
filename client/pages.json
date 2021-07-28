@@ -58,7 +58,16 @@
 				"navigationBarTitleText": "等级"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/sorce/list",
+            "style" :
+            {
+                "navigationBarTitleText": "我的积分",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "家庭积分",

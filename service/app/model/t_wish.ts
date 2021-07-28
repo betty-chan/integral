@@ -6,7 +6,6 @@ module.exports = app => {
   const Model = app.model.define('t_wish', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       primaryKey: true
     },
     description: {
@@ -16,7 +15,15 @@ module.exports = app => {
     user_id: {
       type: DataTypes.STRING(255),
       allowNull: false
-    }
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
+    },
   }, {
     tableName: 't_wish',
     timestamps: false,

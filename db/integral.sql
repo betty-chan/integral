@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 23/07/2021 18:19:27
+ Date: 28/07/2021 18:16:35
 */
 
 SET NAMES utf8mb4;
@@ -28,13 +28,15 @@ CREATE TABLE `t_goods`  (
   `on_shelf` tinyint NULL DEFAULT NULL COMMENT '是否在架',
   `limit` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '限制条件',
   `cover_img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '封面图片',
-  `description` blob NULL COMMENT '说明',
+  `other_img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '详细图片',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '说明',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods
 -- ----------------------------
+INSERT INTO `t_goods` VALUES (4, '滑板', 50, 1, NULL, 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Skateboardvintage70s.JPG', NULL, '8岁+');
 
 -- ----------------------------
 -- Table structure for t_grade
@@ -49,7 +51,7 @@ CREATE TABLE `t_grade`  (
   `created_at` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建日期',
   `updated_at` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日期',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_grade
@@ -72,7 +74,7 @@ CREATE TABLE `t_sorce`  (
   `status` tinyint NULL DEFAULT NULL COMMENT '状态：有效、无效',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_sorce
@@ -81,6 +83,7 @@ INSERT INTO `t_sorce` VALUES (1, '1993', 5, '2021-07-16 18:29:23', '签到', '2'
 INSERT INTO `t_sorce` VALUES (2, '1993', 12, NULL, '签到', '2', NULL, NULL);
 INSERT INTO `t_sorce` VALUES (3, '1993', 5, '2021-07-23 03:42:52', '做家务', '2', '2021-07-23 03:42:52', NULL);
 INSERT INTO `t_sorce` VALUES (4, '1997', 5, '2021-07-23 06:23:39', '签到', '2', '2021-07-23 06:23:39', NULL);
+INSERT INTO `t_sorce` VALUES (10, '1993', NULL, '2021-07-28 03:27:39', '我要走走', NULL, '2021-07-28 03:27:39', NULL);
 
 -- ----------------------------
 -- Table structure for t_user
@@ -110,12 +113,15 @@ CREATE TABLE `t_wish`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '愿望说明',
   `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户',
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_wish
 -- ----------------------------
-INSERT INTO `t_wish` VALUES (1, '滑板鞋', '1997');
+INSERT INTO `t_wish` VALUES (1, '我要一双滑板鞋', '1997', NULL, NULL);
+INSERT INTO `t_wish` VALUES (3, '我要走走\n', '1993', '2021-07-28 03:28:39', '2021-07-28 03:28:39');
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -6,7 +6,6 @@ module.exports = app => {
   const Model = app.model.define('t_goods', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       primaryKey: true
     },
     title: {
@@ -29,8 +28,12 @@ module.exports = app => {
       type: DataTypes.STRING(255),
       allowNull: true
     },
+    other_img: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
     description: {
-      type: "BLOB",
+      type: DataTypes.STRING(255),
       allowNull: true
     }
   }, {

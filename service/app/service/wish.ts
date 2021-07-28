@@ -1,5 +1,5 @@
 import { Service } from 'egg';
-
+import { wishParams } from './type/sroce-interface'
 
 function flattenObj(values) {
     let keys1 = Object.keys(values);
@@ -41,5 +41,27 @@ export default class wishService extends Service {
             flattenObj(element)
         });
         return result
+    }
+    /*
+     * 添加或者更新
+     */
+    public async addWish(obj: wishParams) {
+        let { ctx } = this
+        if (obj.id) {
+            return await ctx.model.TWish.update(obj, {
+                where: {
+                    id: obj.id
+                }
+            });
+        } else {
+            return await ctx.model.TWish.create(obj);
+        }
+    }
+    /*
+     * 删除
+     */
+    public async deleteWish(query) {
+        let { ctx } = this
+        return await ctx.model.TWish.destroy({ where: query });
     }
 }

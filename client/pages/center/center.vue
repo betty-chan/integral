@@ -1,9 +1,9 @@
 <template>
 	<view class="center">
 		<view class="logo" @click="goLogin" :hover-class="!login ? 'logo-hover' : ''">
-			<image class="logo-img" :src="login ? uerInfo.avatarUrl :avatarUrl"></image>
+			<image class="logo-img" :src="uerInfo.avatarUrl || avatarUrl"></image>
 			<view class="logo-title">
-				<text class="uer-name">Hi，{{login ? uerInfo.name : '您未登录'}}</text>
+				<text class="uer-name">Hi，{{login ? uerInfo.username : '您未登录'}}</text>
 				<text class="go-login navigat-arrow" v-if="!login">&#xe65e;</text>
 			</view>
 		</view>
@@ -13,21 +13,26 @@
 				<text class="list-text">会员等级</text>
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
-			<view class="center-list-item">
+			<view class="center-list-item" @click="goOther('../sorce/list')">
 				<text class="list-icon">&#xe60d;</text>
 				<text class="list-text">我的积分</text>
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
 		</view>
 		<view class="center-list">
-			<view class="center-list-item border-bottom" @click="goAbout">
+			<view class="center-list-item" @click="goAbout">
 				<text class="list-icon">&#xe603;</text>
 				<text class="list-text">关于</text>
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
-			<view class="center-list-item">
+			<view class="center-list-item border-bottom">
 				<text class="list-icon">&#xe609;</text>
 				<text class="list-text">帐号管理</text>
+				<text class="navigat-arrow">&#xe65e;</text>
+			</view>
+			<view class="center-list-item" v-if="login" @click="loginout">
+				<text class="list-icon">&#xe601;</text>
+				<text class="list-text">退出</text>
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
 		</view>
@@ -43,13 +48,33 @@
 				uerInfo:{}
 			}
 		},
+		mounted(){
+			this.init()
+		},
+		onShow() {
+			this.init()
+		},
 		methods: {
+			init(){
+				var userInfo = JSON.parse(uni.getStorageSync('userInfo'));
+				if(userInfo){
+					this.login = true;
+					this.uerInfo = userInfo;
+				}else{
+					this.goLogin();
+				}
+			},
 			goLogin() {
 				if(!this.login){
 					uni.navigateTo({
 						url:"../login/login"
 					})
 				}
+			},
+			goOther(url){
+				uni.navigateTo({
+					url
+				})
 			},
 			goAbout() {
 				// #ifdef APP-PLUS
@@ -62,6 +87,25 @@
 					url:'/platforms/h5/about/about'
 				});
 				// #endif
+			},
+			loginout(){
+				var token = uni.getStorageSync('token');
+				uni.request({
+					url: '/xboot/api/v2/login/signout', 
+					method: "GET",
+					header: {
+						token: token, //自定义请求头信息
+					},
+				}).then((data)=>{
+					let [error, res]  = data;
+					res = res.data;
+					if(res.success){
+						uni.setStorageSync('token',null);
+						uni.setStorageSync('userInfo',null);
+						this.login = false;
+						this.uerInfo = {}
+					}
+				});
 			}
 		}
 	}

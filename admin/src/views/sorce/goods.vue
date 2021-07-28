@@ -41,14 +41,14 @@
       :width="500"
     >
       <Form ref="form" :model="form" :label-width="80" :rules="formValidate">
-        <FormItem label="名称" prop="name">
-          <Input v-model="form.name" />
+        <FormItem label="名称" prop="title">
+          <Input v-model="form.title" />
         </FormItem>
-        <FormItem label="等级" prop="level">
-          <Input v-model="form.level" />
+        <FormItem label="图片" prop="level">
+          <Input v-model="form.cover_img" />
         </FormItem>
-        <FormItem label="分值" prop="score">
-          <Input v-model="form.score" />
+        <FormItem label="分值" prop="value">
+          <Input v-model="form.value" />
         </FormItem>
         <FormItem label="说明" prop="description">
           <Input v-model="form.description" />
@@ -83,23 +83,15 @@ export default {
       modalTitle: "", // 添加或编辑标题
       form: {
         id: null,
-        name: null,
+        title: null,
         description: null,
-        score: null,
-        level: 0,
+        value: null,
+        on_shelf: 1,
       },
       // 表单验证规则
       formValidate: {
-        name: [{ required: true, message: "不能为空", trigger: "change" }],
-        level: [
-          {
-            required: true,
-            message: "不能为空",
-            trigger: "change",
-            type: "any",
-          },
-        ],
-        score: [
+        title: [{ required: true, message: "不能为空", trigger: "change" }],
+        value: [
           {
             required: true,
             message: "不能为空",
@@ -123,12 +115,12 @@ export default {
         },
         {
           title: "名称",
-          key: "name",
+          key: "title",
           sortable: true,
         },
         {
-          title: "说明",
-          key: "description",
+          title: "是否在架",
+          key: "on_shelf",
           sortable: true,
         },
         {
@@ -214,7 +206,7 @@ export default {
     },
     getDataList() {
       this.loading = true;
-      this.getRequest("/grade/list", this.searchForm).then((res) => {
+      this.getRequest("/goods/list", this.searchForm).then((res) => {
         this.loading = false;
         if (res.success) {
           this.data = res.data.rows;
@@ -229,7 +221,7 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.submitLoading = true;
-          this.postRequest("/grade/edit", this.form).then((res) => {
+          this.postRequest("/goods/edit", this.form).then((res) => {
             this.submitLoading = false;
             if (res.success) {
               this.$Message.success("操作成功");
@@ -265,10 +257,11 @@ export default {
     remove(v) {
       this.$Modal.confirm({
         title: "确认删除",
-        content: "您确认要删除 " + v.name + " ?",
+        // 记得确认修改此处
+        content: "您确认要删除 " + v.title + " ?",
         loading: true,
         onOk: () => {
-          this.getRequest("/grade/delete", { id: v.id }).then((res) => {
+          this.getRequest("/goods/delete", { id: v.id }).then((res) => {
             this.$Modal.remove();
             if (res.success) {
               this.$Message.success("操作成功");

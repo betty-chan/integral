@@ -123,7 +123,7 @@ export default {
 	position: fixed;
 	white-space:nowrap;
 	color: #EEEEEE;
-	background-color: #ad08ff;
+	background-color: rgb(173 173 173 / 50%);
 	border-radius: 32px;
 	padding: 5px;
 	animation: mymove 20s linear forwards;
