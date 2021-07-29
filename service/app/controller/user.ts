@@ -50,7 +50,7 @@ class UserController extends Controller {
             contentBody.password = contentBody.newPassword
         }
         // 获取并填充数据
-        await this.service.user.updateUserInfo({ userId }, contentBody)
+        await this.service.user.updateUserInfo({ id: userId }, contentBody)
         // 已更改密码，让用户重新登录
         if (contentBody.password) {
             ctx.logout();

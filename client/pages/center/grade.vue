@@ -7,11 +7,12 @@
 				</view>
 			</swiper-item>
 		</swiper>
-		<view>
+		<view style="height: 300rpx;margin: 20rpx;">
 			<view>{{selectIndex==myGradeIndex?"我的":gradeList[selectIndex].name}}等级</view>
 			<view v-if="gradeList&& gradeList[selectIndex].list">
-				<view v-for="(item,index) in gradeList[selectIndex].list">
-					{{item.description}}
+				<view v-for="(item,index) in gradeList[selectIndex].list" style="width: 100rpx;display: inline-block;">
+					<text class="list-icon">&#xe601;</text>
+					<view>{{item.description}}</view>
 				</view>
 			</view>
 		</view>
@@ -21,9 +22,6 @@
 <script>
 	export default {
 		mounted(){
-			this.init()
-		},
-		onShow() {
 			this.init()
 		},
 		data() {

@@ -60,7 +60,9 @@
 					res = res.data;
 					if(res.success){
 						uni.setStorageSync('userInfo',JSON.stringify(res.data));
-						uni.navigateBack();
+						uni.switchTab({
+						       url: '/pages/new/new'
+						})
 					}
 				});
 			},

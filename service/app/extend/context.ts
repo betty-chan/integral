@@ -22,6 +22,7 @@ module.exports = {
     this.status = status
     this.body = {
       data,
+      code: status,
       message: message,
       success: true
     }
