@@ -10,9 +10,7 @@
 </template>
 
 <script>
-	import lBarrage from '@/components/l-barrage/l-barrage.vue'
 	export default {
-		components:{lBarrage},
 		mounted() {
 			this.init()
 		},

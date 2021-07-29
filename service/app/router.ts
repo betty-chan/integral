@@ -28,6 +28,8 @@ export default (app: Application) => {
   apiV2Router.get('/goods/list', goods.page); // 列表
   apiV2Router.post('/goods/edit', goods.edit); // 编辑
   apiV2Router.get('/goods/delete', goods.delete);
+  apiV2Router.post('/record/add', goods.addRecord);
+  apiV2Router.get('/record/list', goods.pageRecord);
 
   // sorce
   apiV2Router.get('/sorce/list', sorce.page); // 列表

@@ -21,7 +21,7 @@ module.exports = app => {
       allowNull: true
     },
     limit: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     cover_img: {

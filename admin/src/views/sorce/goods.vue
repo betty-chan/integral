@@ -124,15 +124,10 @@ export default {
           sortable: true,
         },
         {
-          title: "创建时间",
-          key: "created_at",
+          title: "价值",
+          key: "value",
           sortable: true,
           sortType: "desc",
-        },
-        {
-          title: "更新时间",
-          key: "updated_at",
-          sortable: true,
         },
         {
           title: "操作",

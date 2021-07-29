@@ -1,5 +1,5 @@
 export interface sroceUserParams {
-    id: number,
+    id?: number,
     user_id: string, // 用户名
     sorce: number, // 积分要求
     type: string, // 积分类别
@@ -26,4 +26,11 @@ export interface goodsParams {
     value: number, // 价值
     description: string,//积分说明
     on_shelf: number
+}
+
+export interface recordParams {
+    id?: number,
+    user_id: string,
+    goods_id: string,
+    value?: number
 }

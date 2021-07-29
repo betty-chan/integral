@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 28/07/2021 18:16:35
+ Date: 29/07/2021 15:19:42
 */
 
 SET NAMES utf8mb4;
@@ -26,17 +26,23 @@ CREATE TABLE `t_goods`  (
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '标题',
   `value` int NULL DEFAULT NULL COMMENT '标价',
   `on_shelf` tinyint NULL DEFAULT NULL COMMENT '是否在架',
-  `limit` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '限制条件',
   `cover_img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '封面图片',
   `other_img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '详细图片',
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '说明',
+  `limit` int(10) UNSIGNED ZEROFILL NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods
 -- ----------------------------
-INSERT INTO `t_goods` VALUES (4, '滑板', 50, 1, NULL, 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Skateboardvintage70s.JPG', NULL, '8岁+');
+INSERT INTO `t_goods` VALUES (4, '滑板', 50, 1, 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Skateboardvintage70s.JPG', NULL, '8岁+', NULL);
+INSERT INTO `t_goods` VALUES (7, '杰克电动牙刷', 75, 1, 'https://jf-asset1.10086.cn/pic/ware/202106/60cc6e26a1a9ff755ce23bab.jpg', NULL, '0', NULL);
+INSERT INTO `t_goods` VALUES (8, '蓝牙耳机', 100, 1, 'https://jf-asset1.10086.cn/pic/ware/5eb27e/c/5eb27ecd44d47f6f691403eb.jpg', NULL, '10+', NULL);
+INSERT INTO `t_goods` VALUES (9, '背包', 10, 1, 'https://jf-asset1.10086.cn/pic/ware/5f1e74/8/5f1e74883c98ae50c345cf28.jpg', '', '0', NULL);
+INSERT INTO `t_goods` VALUES (10, '红包', 100, 1, 'https://jf-asset2.10086.cn/pic/ware/202105/60ab606aa1a9ff755ce0439a.jpg', NULL, '0', NULL);
+INSERT INTO `t_goods` VALUES (11, '电话手表', 200, 1, 'https://jf-asset2.10086.cn/pic/ware/202012/5fe05098928df22e3f1bbdeb.jpg', NULL, '5+', NULL);
+INSERT INTO `t_goods` VALUES (12, '手机', 1000, 1, 'https://jf-asset2.10086.cn/pic/ware/202106/60cb1308a1a9ff755ce21891.jpg', NULL, '10+', NULL);
 
 -- ----------------------------
 -- Table structure for t_grade
@@ -60,6 +66,24 @@ INSERT INTO `t_grade` VALUES (1, '白银', 1, '1.i1i2', 0, '2021-07-16 17:26:32'
 INSERT INTO `t_grade` VALUES (2, '黄金', 1, '12', 455, '2021-07-16 09:48:04', '2021-07-16 09:57:30');
 
 -- ----------------------------
+-- Table structure for t_record
+-- ----------------------------
+DROP TABLE IF EXISTS `t_record`;
+CREATE TABLE `t_record`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `goods_id` int NULL DEFAULT NULL COMMENT '商品id',
+  `user_id` int NULL DEFAULT NULL COMMENT '用户id',
+  `created_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_record
+-- ----------------------------
+INSERT INTO `t_record` VALUES (8, 9, 1993, '2021-07-29 06:25:47');
+INSERT INTO `t_record` VALUES (9, 9, 1993, '2021-07-29 06:28:16');
+
+-- ----------------------------
 -- Table structure for t_sorce
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sorce`;
@@ -80,10 +104,10 @@ CREATE TABLE `t_sorce`  (
 -- Records of t_sorce
 -- ----------------------------
 INSERT INTO `t_sorce` VALUES (1, '1993', 5, '2021-07-16 18:29:23', '签到', '2', NULL, NULL);
-INSERT INTO `t_sorce` VALUES (2, '1993', 12, NULL, '签到', '2', NULL, NULL);
 INSERT INTO `t_sorce` VALUES (3, '1993', 5, '2021-07-23 03:42:52', '做家务', '2', '2021-07-23 03:42:52', NULL);
 INSERT INTO `t_sorce` VALUES (4, '1997', 5, '2021-07-23 06:23:39', '签到', '2', '2021-07-23 06:23:39', NULL);
-INSERT INTO `t_sorce` VALUES (10, '1993', NULL, '2021-07-28 03:27:39', '我要走走', NULL, '2021-07-28 03:27:39', NULL);
+INSERT INTO `t_sorce` VALUES (12, '1993', -10, '2021-07-29 06:25:47', '积分兑换', '2', '2021-07-29 06:25:47', NULL);
+INSERT INTO `t_sorce` VALUES (13, '1993', -10, '2021-07-29 06:28:16', '积分兑换', '2', '2021-07-29 06:28:16', NULL);
 
 -- ----------------------------
 -- Table structure for t_user
@@ -102,7 +126,7 @@ CREATE TABLE `t_user`  (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('1993', 'betty_chan@qq.com', '陈欣', '123456', 1, '管理员');
+INSERT INTO `t_user` VALUES ('1993', 'betty_chan@qq.com', '成名', '123456', 1, '管理员');
 INSERT INTO `t_user` VALUES ('1997', 'beibei@.qq.com', '贝贝', '123123', 0, NULL);
 
 -- ----------------------------

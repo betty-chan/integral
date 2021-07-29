@@ -57,8 +57,8 @@
 			"style": {
 				"navigationBarTitleText": "等级"
 			}
-		}
-	    ,{
+		},
+		{
             "path" : "pages/sorce/list",
             "style" :
             {
@@ -66,7 +66,16 @@
                 "enablePullDownRefresh": false
             }
             
-        }
+        },
+		{
+		    "path" : "pages/sorce/detail",
+		    "style" :
+		    {
+		        "navigationBarTitleText": "商品详情",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
