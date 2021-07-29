@@ -44,7 +44,6 @@
 					if(res.success){
 						uni.setStorageSync('token',res.data.token);
 						this.getUserInfo();
-						uni.navigateBack();
 					}
 				});
 			},
@@ -61,6 +60,7 @@
 					res = res.data;
 					if(res.success){
 						uni.setStorageSync('userInfo',JSON.stringify(res.data));
+						uni.navigateBack();
 					}
 				});
 			},

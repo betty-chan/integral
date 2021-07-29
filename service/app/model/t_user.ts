@@ -28,7 +28,11 @@ module.exports = app => {
     description: {
       type: DataTypes.STRING(255),
       allowNull: true
-    }
+    },
+    birth: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
   }, {
     tableName: 't_user',
     timestamps: false,

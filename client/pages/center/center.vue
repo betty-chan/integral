@@ -4,11 +4,11 @@
 			<image class="logo-img" :src="uerInfo.avatarUrl || avatarUrl"></image>
 			<view class="logo-title">
 				<text class="uer-name">Hi，{{login ? uerInfo.username : '您未登录'}}</text>
-				<text class="go-login navigat-arrow" v-if="!login">&#xe65e;</text>
+				<text class="go-login navigat-arrow">&#xe65e;</text>
 			</view>
 		</view>
 		<view class="center-list">
-			<view class="center-list-item border-bottom">
+			<view class="center-list-item border-bottom" @click="goOther('../center/grade')">
 				<text class="list-icon">&#xe60c;</text>
 				<text class="list-text">会员等级</text>
 				<text class="navigat-arrow">&#xe65e;</text>
@@ -25,12 +25,14 @@
 				<text class="list-text">关于</text>
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
-			<view class="center-list-item border-bottom">
+		</view>
+		<view class="center-list">
+			<view class="center-list-item border-bottom" @click="goOther('../center/reset')">
 				<text class="list-icon">&#xe609;</text>
-				<text class="list-text">帐号管理</text>
+				<text class="list-text">重置密码</text>
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
-			<view class="center-list-item" v-if="login" @click="loginout">
+			<view class="center-list-item" @click="loginout">
 				<text class="list-icon">&#xe601;</text>
 				<text class="list-text">退出</text>
 				<text class="navigat-arrow">&#xe65e;</text>
@@ -61,13 +63,19 @@
 					this.login = true;
 					this.uerInfo = userInfo;
 				}else{
-					this.goLogin();
+					uni.navigateTo({
+						url:"../login/login"
+					})
 				}
 			},
 			goLogin() {
 				if(!this.login){
 					uni.navigateTo({
 						url:"../login/login"
+					})
+				}else{
+					uni.navigateTo({
+						url:"../center/info"
 					})
 				}
 			},

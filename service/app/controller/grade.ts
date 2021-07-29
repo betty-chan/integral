@@ -8,6 +8,13 @@ class GradeController extends Controller {
         let result = await ctx.service.grade.findGrade(page)
         ctx.returnBody(200, "操作成功", result)
     }
+    //特权列表查询
+    public async pagePower() {
+        const { ctx } = this
+        const page = ctx.request.query
+        let result = await ctx.service.grade.findPower(page)
+        ctx.returnBody(200, "操作成功", result)
+    }
     //列表添加或修改
     public async edit() {
         const { ctx } = this

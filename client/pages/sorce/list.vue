@@ -32,7 +32,7 @@ export default {
 	},
 	data() {
 		return {
-			uerInfo:{},
+			userInfo:{},
 			sum:0,
 			goodsList:[]
 		}
@@ -41,7 +41,7 @@ export default {
 		init(){
 			var userInfo = JSON.parse(uni.getStorageSync('userInfo'));
 			if(userInfo){
-				this.uerInfo = userInfo;
+				this.userInfo = userInfo;
 				this.sumSorce()
 			}
 			this.getGoodsList();
@@ -53,7 +53,7 @@ export default {
 				method: "GET",
 				data:{
 					type:2,
-					user_id: this.uerInfo.userId
+					user_id: this.userInfo.userId
 				},
 				header: {
 					token: token, //自定义请求头信息

@@ -10,6 +10,20 @@ export default class gradeService extends Service {
         return await ctx.model.TGrade.findAndCountAll({
             limit: +page.pageSize,
             offset: page.pageNumber - 1,
+            order: ['level']
+        })
+    }
+    /*
+     * 查询等级特权
+     */
+    public async findPower(page) {
+        let { ctx } = this
+        return await ctx.model.TPower.findAndCountAll({
+            limit: +page.pageSize,
+            offset: page.pageNumber - 1,
+            where: {
+                grade_id: page.grade_id
+            }
         })
     }
     /*

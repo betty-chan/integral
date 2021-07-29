@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 29/07/2021 15:19:42
+ Date: 29/07/2021 18:10:56
 */
 
 SET NAMES utf8mb4;
@@ -62,8 +62,25 @@ CREATE TABLE `t_grade`  (
 -- ----------------------------
 -- Records of t_grade
 -- ----------------------------
-INSERT INTO `t_grade` VALUES (1, '白银', 1, '1.i1i2', 0, '2021-07-16 17:26:32', '2021-07-16 17:26:32');
-INSERT INTO `t_grade` VALUES (2, '黄金', 1, '12', 455, '2021-07-16 09:48:04', '2021-07-16 09:57:30');
+INSERT INTO `t_grade` VALUES (1, '大众', 1, '1.i1i2', 0, '2021-07-29 16:27:14', '2021-07-29 16:27:14');
+INSERT INTO `t_grade` VALUES (2, '黄金', 3, '12', 455, '2021-07-29 16:43:57', '2021-07-29 16:43:57');
+INSERT INTO `t_grade` VALUES (3, '白银', 2, NULL, 200, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for t_power
+-- ----------------------------
+DROP TABLE IF EXISTS `t_power`;
+CREATE TABLE `t_power`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `grade_id` int NOT NULL COMMENT '等级id',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '说明',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_power
+-- ----------------------------
+INSERT INTO `t_power` VALUES (1, 3, '零花钱5元/月');
 
 -- ----------------------------
 -- Table structure for t_record
@@ -120,14 +137,15 @@ CREATE TABLE `t_user`  (
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '密码',
   `is_admin` tinyint NULL DEFAULT NULL COMMENT '是否管理员',
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户标签',
+  `birth` date NULL DEFAULT NULL COMMENT '出生年月',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('1993', 'betty_chan@qq.com', '成名', '123456', 1, '管理员');
-INSERT INTO `t_user` VALUES ('1997', 'beibei@.qq.com', '贝贝', '123123', 0, NULL);
+INSERT INTO `t_user` VALUES ('1993', 'betty_chan@qq.com', '成名', '123456', 1, '管理员', NULL);
+INSERT INTO `t_user` VALUES ('1997', 'beibei@.qq.com', '贝贝', '123123', 0, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for t_wish
@@ -147,5 +165,6 @@ CREATE TABLE `t_wish`  (
 -- ----------------------------
 INSERT INTO `t_wish` VALUES (1, '我要一双滑板鞋', '1997', NULL, NULL);
 INSERT INTO `t_wish` VALUES (3, '我要走走\n', '1993', '2021-07-28 03:28:39', '2021-07-28 03:28:39');
+INSERT INTO `t_wish` VALUES (7, '考试100分\n', '1993', '2021-07-29 09:14:36', '2021-07-29 09:14:36');
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -41,6 +41,24 @@
 			}
 		},
 		{
+			"path": "pages/center/info",
+			"style": {
+				"navigationBarTitleText": "个人信息"
+			}
+		},
+		{
+			"path": "pages/center/reset",
+			"style": {
+				"navigationBarTitleText": "重置密码"
+			}
+		},
+		{
+			"path": "pages/center/grade",
+			"style": {
+				"navigationBarTitleText": "我的等级"
+			}
+		},
+		{
 			"path": "platforms/app-plus/about/about",
 			"style": {
 				"navigationBarTitleText": "关于"
