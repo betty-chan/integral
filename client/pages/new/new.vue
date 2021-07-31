@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-	    <ren-calendar ref='ren' :markDays='markDays' :weekstart="1" :headerBar='false' :open="open" @onDayClick='onDayClick'></ren-calendar>
+	    <ren-calendar ref='ren' :markDays='markDays' :weekstart="1" :open="false" @onDayClick='onDayClick' :disabledAfter="true"></ren-calendar>
 		<view class="card">
 			<block v-for="(item, index) in list" :key="index">
 				<view style="padding: 5rpx;">
@@ -92,6 +92,6 @@ export default {
 
 <style scoped>
 uni-page-body{
-	background-color: #00aaff;
+	background-color: #97bcff;
 }
 </style>

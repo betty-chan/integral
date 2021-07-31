@@ -83,7 +83,7 @@
 					let [error, res]  = data;
 					res = res.data;
 					if(res.success){
-						this.gradeList = res.data.rows;
+						this.gradeList = res.data;
 						this.sumSorce();
 					}
 				});

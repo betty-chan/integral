@@ -24,6 +24,8 @@ export default (app: Application) => {
   apiV2Router.post('/grade/edit', grade.edit); // 编辑
   apiV2Router.get('/grade/delete', grade.delete);
   apiV2Router.get('/power/list', grade.pagePower);
+  apiV2Router.post('/power/edit', grade.editPower); // 编辑
+  apiV2Router.get('/power/delete', grade.deletePower);
 
   // goods
   apiV2Router.get('/goods/list', goods.page); // 列表

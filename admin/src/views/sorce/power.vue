@@ -7,35 +7,23 @@
       <Row type="flex" justify="space-between">
         <Col v-if="expand" span="5">
           <Row class="operation">
-            <Button @click="addDcit" type="primary" icon="md-add">添加</Button>
-            <Dropdown @on-click="handleDropdown">
-              <Button>
-                更多操作
-                <Icon type="md-arrow-dropdown" />
-              </Button>
-              <DropdownMenu slot="list">
-                <DropdownItem name="editDcit">编辑</DropdownItem>
-                <DropdownItem name="delDcit">删除</DropdownItem>
-                <DropdownItem name="refreshDcit">刷新</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+            <Button @click="addTree" type="primary" icon="md-add">添加</Button>
+            <Button @click="handleDropdown('editTree')">编辑</Button>
+            <Button @click="handleDropdown('delTree')">删除</Button>
+            <Button @click="handleDropdown('refreshTree')">刷新</Button>
           </Row>
-          <Alert show-icon>
-            当前选择：
-            <span class="select-title">{{ editTitle }}</span>
-            <a class="select-clear" v-if="editTitle" @click="cancelEdit"
-              >取消选择</a
-            >
-          </Alert>
           <div style="position: relative">
-            <div class="tree-bar" style="max-height: 800px">
-              <Tree
-                ref="tree"
-                :data="treeData"
-                @on-select-change="selectTree"
-              ></Tree>
-            </div>
-            <Spin size="large" fix v-if="treeLoading"></Spin>
+            <ul class="tree-bar" style="max-height: 800px">
+              <li
+                v-for="(item, index) in treeData"
+                :key="index"
+                @click="selectTree(index)"
+                :class="selectIndex == index ? 'active' : ''"
+              >
+                {{ item.name }}
+              </li>
+            </ul>
+            <Spin fix v-if="treeLoading"></Spin>
           </div>
         </Col>
         <div class="expand">
@@ -59,7 +47,6 @@
               :data="data"
               sortable="custom"
               @on-sort-change="changeSort"
-              @on-selection-change="showSelect"
               ref="table"
             ></Table>
           </Row>
@@ -112,10 +99,7 @@
       </Form>
       <div slot="footer">
         <Button type="text" @click="dictModalVisible = false">取消</Button>
-        <Button
-          type="primary"
-          :loading="submitLoading"
-          @click="handelSubmitDict"
+        <Button type="primary" :loading="submitLoading" @click="addGrade"
           >提交</Button
         >
       </div>
@@ -143,25 +127,13 @@
 </template>
 
 <script>
-import {
-  getAllDictList,
-  addDict,
-  editDict,
-  deleteDict,
-  searchDict,
-  getAllDictDataList,
-  addDictData,
-  editDictData,
-  deleteData,
-} from "@/api/index";
 export default {
-  name: "dic-manage",
+  mounted() {
+    this.init();
+  },
   data() {
     return {
-      openSearch: true,
-      openTip: true,
       treeLoading: false, // 树加载状态
-      maxHeight: "800px",
       loading: false, // 表格加载状态
       editTitle: "", // 编辑节点名称
       searchKey: "", // 搜索树
@@ -169,11 +141,9 @@ export default {
       span: 18,
       expandIcon: "ios-arrow-back",
       selectNode: {},
+      selectIndex: null,
       treeData: [], // 树数据
-      selectList: [], // 多选数据
       searchForm: {
-        name: "",
-        status: "",
         pageNumber: 1, // 当前页数
         pageSize: 10, // 页面大小
         sort: "sortOrder", // 默认排序字段
@@ -269,67 +239,7 @@ export default {
   },
   methods: {
     init() {
-      this.getAllDict();
-      this.getDataList();
-    },
-    getAllDict() {
-      this.treeLoading = true;
-      this.getRequest("/grade/list").then((res) => {
-        this.treeLoading = false;
-        if (res.success) {
-          this.treeData = res.result;
-        }
-      });
-    },
-    search() {
-      // 搜索树
-      if (this.searchKey) {
-        this.treeLoading = true;
-        searchDict({ key: this.searchKey }).then((res) => {
-          this.treeLoading = false;
-          if (res.success) {
-            this.treeData = res.result;
-          }
-        });
-      } else {
-        // 为空重新加载
-        this.getAllDict();
-      }
-    },
-    selectTree(v) {
-      if (v.length > 0) {
-        this.$refs.dictForm.resetFields();
-        // 转换null为""
-        for (let attr in v[0]) {
-          if (v[0][attr] == null) {
-            v[0][attr] = "";
-          }
-        }
-        let str = JSON.stringify(v[0]);
-        let data = JSON.parse(str);
-        this.selectNode = data;
-        this.dictForm = data;
-        this.editTitle = data.title + "(" + data.type + ")";
-        // 重新加载表
-        this.searchForm.pageNumber = 1;
-        this.searchForm.pageSize = 10;
-        this.getDataList();
-      } else {
-        this.cancelEdit();
-      }
-    },
-    cancelEdit() {
-      let data = this.$refs.tree.getSelectedNodes()[0];
-      if (data) {
-        data.selected = false;
-      }
-      // 取消选择后获取全部数据
-      this.selectNode = {};
-      this.editTitle = "";
-      this.getDataList();
-    },
-    changeSelect(v) {
-      this.selectList = v;
+      this.getAllGrade();
     },
     changeExpand() {
       this.expand = !this.expand;
@@ -344,33 +254,10 @@ export default {
     changePage(v) {
       this.searchForm.pageNumber = v;
       this.getDataList();
-      this.clearSelectAll();
     },
     changePageSize(v) {
       this.searchForm.pageSize = v;
       this.getDataList();
-    },
-    getDataList() {
-      this.loading = true;
-      if (this.selectNode.id) {
-        this.searchForm.dictId = this.selectNode.id;
-      } else {
-        delete this.searchForm.dictId;
-      }
-      if (!this.searchForm.status) {
-        this.searchForm.status = "";
-      }
-      getAllDictDataList(this.searchForm).then((res) => {
-        this.loading = false;
-        if (res.success) {
-          this.data = res.result.content;
-          this.total = res.result.totalElements;
-          if (this.data.length == 0 && this.searchForm.pageNumber > 1) {
-            this.searchForm.pageNumber -= 1;
-            this.getDataList();
-          }
-        }
-      });
     },
     changeSort(e) {
       this.searchForm.sort = e.key;
@@ -380,165 +267,146 @@ export default {
       }
       this.getDataList();
     },
-    showSelect(e) {
-      this.selectList = e;
-    },
-    clearSelectAll() {
-      this.$refs.table.selectAll(false);
-    },
-    refreshDict() {
-      this.getAllDict();
-      this.selectNode = {};
-      this.editTitle = "";
-      this.getDataList();
-    },
-    handleDropdown(name) {
-      if (name == "editDcit") {
-        if (!this.selectNode.id) {
-          this.$Message.warning("您还未选择要编辑的字典");
-          return;
+    getAllGrade() {
+      this.treeLoading = true;
+      this.getRequest("/grade/list").then((res) => {
+        this.treeLoading = false;
+        if (res.success) {
+          this.treeData = res.data;
         }
-        this.editDcit();
-      } else if (name == "delDcit") {
-        this.delDcit();
-      } else if (name == "refreshDcit") {
-        this.refreshDict();
+      });
+    },
+    selectTree(index) {
+      if (this.selectIndex == index) {
+        this.selectIndex = null;
+        this.selectNode = {};
+        this.data = [];
+        this.total = 0;
+      } else {
+        this.selectIndex = index;
+        this.selectNode = this.treeData[this.selectIndex];
+        this.getDataList();
       }
     },
-    addDcit() {
+    handleDropdown(name) {
+      if (name) {
+        this[name]();
+      }
+    },
+    refreshTree() {
+      this.getAllGrade();
+      this.selectIndex = null;
+    },
+    addTree() {
       this.modalType = 0;
       this.dictModalTitle = "添加字典";
       this.$refs.dictForm.resetFields();
-      this.dictForm.sortOrder = this.treeData.length + 1;
-      this.cancelEdit();
       this.dictModalVisible = true;
     },
-    editDcit() {
-      this.modalType = 1;
-      this.dictModalTitle = "编辑字典";
-      this.dictModalVisible = true;
-    },
-    delDcit() {
-      if (!this.selectNode.id) {
-        this.$Message.warning("您还未选择要删除的字典");
-        return;
-      }
-      this.$Modal.confirm({
-        title: "确认删除",
-        loading: true,
-        content: "您确认要删除 " + this.selectNode.title + " ?",
-        onOk: () => {
-          // 删除
-          deleteDict({ ids: this.selectNode.id }).then((res) => {
-            this.$Modal.remove();
-            if (res.success) {
-              this.$Message.success("操作成功");
-              this.refreshDict();
-            }
-          });
-        },
-      });
-    },
-    add() {
-      if (!this.selectNode.id) {
-        this.$Message.warning("请先选择一个字典类别");
-        return;
-      }
-      this.modalType = 0;
-      this.modalTitle = "添加字典 " + this.editTitle + " 的数据";
-      this.$refs.form.resetFields();
-      this.form.sortOrder = this.data.length + 1;
-      this.modalVisible = true;
-    },
-    edit(v) {
-      this.modalType = 1;
-      if (this.editTitle) {
-        this.modalTitle = "编辑字典 " + this.editTitle + " 的数据";
-      } else {
-        this.modalTitle = "编辑字典数据";
-      }
-      this.$refs.form.resetFields();
-      // 转换null为""
-      for (let attr in v) {
-        if (v[attr] == null) {
-          v[attr] = "";
-        }
-      }
-      let str = JSON.stringify(v);
-      let data = JSON.parse(str);
-      this.form = data;
-      this.modalVisible = true;
-    },
-    handelSubmitDict() {
+    addGrade() {
       this.$refs.dictForm.validate((valid) => {
         if (valid) {
           this.submitLoading = true;
           if (this.modalType == 0) {
-            // 添加 避免编辑后传入id等数据 记得删除
             delete this.dictForm.id;
-            addDict(this.dictForm).then((res) => {
-              this.submitLoading = false;
-              if (res.success) {
-                this.$Message.success("操作成功");
-                this.getAllDict();
-                this.dictModalVisible = false;
-              }
-            });
-          } else if (this.modalType == 1) {
-            // 编辑
-            editDict(this.dictForm).then((res) => {
-              this.submitLoading = false;
-              if (res.success) {
-                this.$Message.success("操作成功");
-                this.getAllDict();
-                this.dictModalVisible = false;
-              }
-            });
           }
+          this.postRequest("/grade/edit", this.dictForm).then((res) => {
+            this.submitLoading = false;
+            if (res.success) {
+              this.$Message.success("操作成功");
+              this.getAllGrade();
+              this.dictModalVisible = false;
+            }
+          });
         }
       });
+    },
+    editTree() {
+      if (this.selectIndex == null) {
+        return this.$Message.warning("您还未选择要操作的等级");
+      }
+      this.dictForm = this.selectNode;
+      this.modalType = 1;
+      this.dictModalTitle = "编辑字典";
+      this.dictModalVisible = true;
+    },
+    delTree() {
+      if (this.selectIndex == null) {
+        return this.$Message.warning("您还未选择要操作的等级");
+      }
+      this.$Modal.confirm({
+        title: "确认删除",
+        loading: true,
+        content: "您确认要删除 " + this.selectNode.name + " ?",
+        onOk: () => {
+          this.getRequest("/grade/delete", { ids: this.selectNode.id }).then(
+            (res) => {
+              this.$Modal.remove();
+              if (res.success) {
+                this.$Message.success("操作成功");
+                this.refreshTree();
+              }
+            }
+          );
+        },
+      });
+    },
+    getDataList() {
+      this.loading = true;
+      let params = { ...this.searchForm };
+      params.grade_id = this.selectNode.id;
+      this.getRequest("/power/list", params).then((res) => {
+        this.loading = false;
+        if (res.success) {
+          this.data = res.data.rows;
+          this.total = res.data.total;
+        }
+      });
+    },
+    add() {
+      if (this.selectIndex == null) {
+        return this.$Message.warning("您还未选择要操作的等级");
+      }
+      this.modalType = 0;
+      this.modalTitle = "添加特权";
+      this.$refs.form.resetFields();
+      this.modalVisible = true;
+    },
+    edit(v) {
+      this.modalType = 1;
+      this.modalTitle = "编辑特权";
+      this.$refs.form.resetFields();
+      this.form = { ...v };
+      this.modalVisible = true;
     },
     handelSubmit() {
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.submitLoading = true;
           if (this.modalType == 0) {
-            // 添加 避免编辑后传入id等数据 记得删除
             delete this.form.id;
-            this.form.dictId = this.selectNode.id;
-            addDictData(this.form).then((res) => {
-              this.submitLoading = false;
-              if (res.success) {
-                this.$Message.success("操作成功");
-                this.getDataList();
-                this.modalVisible = false;
-              }
-            });
-          } else if (this.modalType == 1) {
-            // 编辑
-            editDictData(this.form).then((res) => {
-              this.submitLoading = false;
-              if (res.success) {
-                this.$Message.success("操作成功");
-                this.getDataList();
-                this.modalVisible = false;
-              }
-            });
+            this.form.grade_id = this.selectNode.id;
           }
+          this.postRequest("/power/edit", this.form).then((res) => {
+            this.submitLoading = false;
+            if (res.success) {
+              this.$Message.success("操作成功");
+              this.getDataList();
+              this.modalVisible = false;
+            }
+          });
         }
       });
     },
     remove(v) {
       this.$Modal.confirm({
         title: "确认删除",
-        content: "您确认要删除 " + v.title + " ?",
+        content: "您确认要删除?",
         loading: true,
         onOk: () => {
-          // 删除
-          deleteData({ ids: v.id }).then((res) => {
+          this.getRequest("/power/delete", { id: v.id }).then((res) => {
             this.$Modal.remove();
             if (res.success) {
-              this.clearSelectAll();
               this.$Message.success("操作成功");
               this.getDataList();
             }
@@ -547,8 +415,17 @@ export default {
       });
     },
   },
-  mounted() {
-    this.init();
-  },
 };
 </script>
+<style>
+.tree-bar {
+  border: 1px solid #dcdee2;
+}
+.tree-bar li {
+  padding: 5px;
+}
+.tree-bar li:hover,
+.tree-bar .active {
+  background-color: #d5e8fc;
+}
+</style>

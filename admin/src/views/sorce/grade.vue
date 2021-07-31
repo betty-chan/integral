@@ -217,8 +217,7 @@ export default {
       this.getRequest("/grade/list", this.searchForm).then((res) => {
         this.loading = false;
         if (res.success) {
-          this.data = res.data.rows;
-          this.total = res.data.count;
+          this.data = res.data;
         }
       });
     },
