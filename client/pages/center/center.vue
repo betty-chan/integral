@@ -13,9 +13,14 @@
 				<text class="list-text">会员等级</text>
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
-			<view class="center-list-item" @click="goOther('../sorce/list')">
+			<view class="center-list-item border-bottom" @click="goOther('../sorce/list')">
 				<text class="list-icon">&#xe60d;</text>
 				<text class="list-text">我的积分</text>
+				<text class="navigat-arrow">&#xe65e;</text>
+			</view>
+			<view class="center-list-item" @click="goOther('../achieve/achieve')">
+				<text class="list-icon">&#xe60d;</text>
+				<text class="list-text">我的成就</text>
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
 		</view>

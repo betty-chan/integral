@@ -11,7 +11,8 @@ const store = new Vuex.Store({
 		user_id: null,
 		
 		sumSorce:0,
-		selectGoods: null
+		selectGoods: null,
+		selectMedal:null,
     },  
     mutations: {  
         login(state, provider) {  

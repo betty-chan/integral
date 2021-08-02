@@ -2,7 +2,7 @@ import { Application, Router } from 'egg';
 
 export default (app: Application) => {
   const { controller } = app;
-  const { user, handle, grade, sorce, login, wish, goods } = controller
+  const { user, handle, grade, sorce, login, wish, goods, achieve } = controller
   const apiV2Router: Router = app.router.namespace('/api/v2');
 
   // login 
@@ -43,4 +43,10 @@ export default (app: Application) => {
   apiV2Router.get('/wish/list', wish.page);
   apiV2Router.post('/wish/add', wish.edit);
   apiV2Router.get('/wish/delete', wish.delete);
+
+  //achieve
+  apiV2Router.get('/achieve/list', achieve.page);
+  apiV2Router.get('/achieve/record', achieve.pageRecord);
+  apiV2Router.post('/achieve/add', achieve.edit);
+  apiV2Router.get('/achieve/delete', achieve.delete);
 }

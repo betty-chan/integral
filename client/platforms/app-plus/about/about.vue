@@ -6,19 +6,7 @@
 				<text style="margin-top:20px;">扫码体验看图App模板</text>
 			</view>
 			<view class="desc">
-				基于uni-app开发的看图App模版，项目已开源。
-			</view>
-			<view class="source">
-				<view class="title">本示例源码获取方式：</view>
-				<view class="source-list">
-					<view class="source-cell">
-						<text space="nbsp">1. </text>
-						<text>下载 HBuilderX，新建 uni-app 项目时选择 看图App 模板。</text>
-					</view>
-					<view class="source-cell">
-						<text space="nbsp">2. </text><text @click="openLink" class="link">{{sourceLink}}</text> 
-					</view>
-				</view>
+				基于uni-app看图App模版开发。
 			</view>
 			<button type="primary" @click="share">分享</button>
 		</view>

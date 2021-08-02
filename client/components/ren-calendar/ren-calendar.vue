@@ -4,6 +4,7 @@
             <view class="pre" @click="changeMonthOrWeek('pre')"><</view>
             <view>{{y+'年'+formatNum(m)+'月'}}</view>
             <view class="next" @click="changeMonthOrWeek('next')">></view>
+			<view class="back" @click="chooseToday()">今天</view>
         </view>
         <view class="week">
             <view class="week-day" v-for="(item, index) in weekDay" :key="index">{{ item }}</view>
@@ -101,6 +102,13 @@ export default {
             let res = Number(num);
             return res < 10 ? '0' + res : res;
         },
+		chooseToday(){
+			 this.choose = this.getToday().date;
+			 this.y = moment(this.choose).year();
+			 this.m = moment(this.choose).month()+1;
+			 this.changeMonth();
+			 this.updatePositionTop(this.choose);
+		},
         getToday() {
             let date = new Date();
             let y = date.getFullYear();
@@ -261,7 +269,7 @@ export default {
 				let changeChoose;
 				if(type=='pre'){
 				    changeChoose =  moment(this.choose).subtract(7,"days");
-				}else{
+				}else if(type=='next'){
 					changeChoose =  moment(this.choose).add(7,"days");
 				}
 				if(moment(this.choose).month()!= changeChoose.month()){
@@ -281,7 +289,7 @@ export default {
 			   } else {
 				   this.m = this.m - 1;
 			   } 
-			}else{
+			}else if(type=='next'){
 				if (this.m + 1 == 13) {
 					this.m = 1;
 					this.y = this.y + 1;
@@ -326,6 +334,10 @@ export default {
         .next{
             margin-left: 30rpx;
         }
+		.back{
+			font-size: 12rpx;
+			margin-left: 15rpx;
+		}
     }
 
     .week {

@@ -36,21 +36,6 @@
   font-size: 13px;
   text-align: center;
 }
-.card-num-view {
-  background-color: #00aaff;
-  line-height: 1;
-  display: inline-block;
-  padding: 3px 6px;
-  color: #FFFFFF;
-  font-size: 12px;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  border-radius: 15px;
-  position: absolute;
-  top: 20upx;
-  right: 20upx;
-}
 .card-bottm {
   justify-content: center;
   align-items: center;
@@ -59,7 +44,7 @@
   justify-content: center;
   align-items: center;
   padding: 14upx 0;
-  color: #00aaff;
+  color: #55aaff;
   margin: 20upx 20upx 20upx;
   font-size: 30upx;
   font-family: texticons;
@@ -70,6 +55,7 @@
   color: #555555;
   text-overflow: ellipsis;
   lines: 2;
+  display: -webkit-box;
   white-space: normal;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -137,6 +123,7 @@ view.tag,
 }
 /* 个人中心 */
 .center {
+  display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
@@ -145,7 +132,7 @@ view.tag,
   height: 240upx;
   padding: 20upx;
   box-sizing: border-box;
-  background-color: #00aaff;
+  background-color: #55aaff;
   flex-direction: row;
   align-items: center;
 }
@@ -205,7 +192,7 @@ view.tag,
   height: 90upx;
   line-height: 90upx;
   font-size: 34upx;
-  color: #00aaff;
+  color: #55aaff;
   text-align: center;
   font-family: texticons;
   margin-right: 20upx;
@@ -280,14 +267,14 @@ button {
   font-size: 38upx;
 }
 button.login {
-  background-color: #00aaff;
+  background-color: #55aaff;
   color: #fff;
 }
 button.register {
   margin-top: 30upx;
-  color: #00aaff;
+  color: #55aaff;
   background-color: #fff;
-  border-color: #00aaff;
+  border-color: #55aaff;
   border-width: 2upx;
 }
 .register.hover,

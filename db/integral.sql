@@ -11,11 +11,27 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 29/07/2021 18:10:56
+ Date: 06/08/2021 18:18:27
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for t_achieve
+-- ----------------------------
+DROP TABLE IF EXISTS `t_achieve`;
+CREATE TABLE `t_achieve`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `medal_id` int NULL DEFAULT NULL,
+  `user_id` int NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_achieve
+-- ----------------------------
+INSERT INTO `t_achieve` VALUES (1, 1, 1993);
 
 -- ----------------------------
 -- Table structure for t_goods
@@ -31,7 +47,7 @@ CREATE TABLE `t_goods`  (
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '说明',
   `limit` int(10) UNSIGNED ZEROFILL NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods
@@ -67,6 +83,25 @@ INSERT INTO `t_grade` VALUES (2, '黄金', 3, '12', 455, '2021-07-29 16:43:57', 
 INSERT INTO `t_grade` VALUES (3, '白银', 2, NULL, 200, NULL, NULL);
 
 -- ----------------------------
+-- Table structure for t_medal
+-- ----------------------------
+DROP TABLE IF EXISTS `t_medal`;
+CREATE TABLE `t_medal`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `grey_icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_medal
+-- ----------------------------
+INSERT INTO `t_medal` VALUES (1, '营养小达人', '../../static/diet.png', '学习营养学课程，并输出笔记', '../../static/grey_diet.png');
+INSERT INTO `t_medal` VALUES (2, '环保勋章', '../../static/envira.png', '垃圾分类打卡7天以上', '../../static/grey_envira.png');
+
+-- ----------------------------
 -- Table structure for t_power
 -- ----------------------------
 DROP TABLE IF EXISTS `t_power`;
@@ -75,12 +110,13 @@ CREATE TABLE `t_power`  (
   `grade_id` int NOT NULL COMMENT '等级id',
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '说明',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_power
 -- ----------------------------
 INSERT INTO `t_power` VALUES (1, 3, '零花钱5元/月');
+INSERT INTO `t_power` VALUES (3, 3, 'pad使用2h/周');
 
 -- ----------------------------
 -- Table structure for t_record
@@ -92,7 +128,7 @@ CREATE TABLE `t_record`  (
   `user_id` int NULL DEFAULT NULL COMMENT '用户id',
   `created_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_record
@@ -112,10 +148,10 @@ CREATE TABLE `t_sorce`  (
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '说明',
   `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '积分类型：等级、兑换',
   `updated_at` datetime NULL DEFAULT NULL COMMENT '更新时间',
-  `status` tinyint NULL DEFAULT NULL COMMENT '状态：有效、无效',
+  `status` tinyint NULL DEFAULT NULL COMMENT '状态：1有效、2无效',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_sorce
@@ -158,7 +194,7 @@ CREATE TABLE `t_wish`  (
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_wish
@@ -166,5 +202,6 @@ CREATE TABLE `t_wish`  (
 INSERT INTO `t_wish` VALUES (1, '我要一双滑板鞋', '1997', NULL, NULL);
 INSERT INTO `t_wish` VALUES (3, '我要走走\n', '1993', '2021-07-28 03:28:39', '2021-07-28 03:28:39');
 INSERT INTO `t_wish` VALUES (7, '考试100分\n', '1993', '2021-07-29 09:14:36', '2021-07-29 09:14:36');
+INSERT INTO `t_wish` VALUES (8, '12312', '1993', '2021-08-02 05:49:33', '2021-08-02 05:49:33');
 
 SET FOREIGN_KEY_CHECKS = 1;

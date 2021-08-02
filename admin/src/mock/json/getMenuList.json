@@ -159,6 +159,53 @@
                     "permTypes": null
                 },
                 {
+                    "id": "306617415754584063",
+                    "parentId": "125909152017944572",
+                    "name": "achieve",
+                    "showAlways": false,
+                    "type": 0,
+                    "title": "成就管理",
+                    "path": "/ad",
+                    "component": "Main",
+                    "icon": "md-add-circle",
+                    "url": null,
+                    "buttonType": "",
+                    "level": "1",
+                    "children": [
+                        {
+                            "id": "306618021839900671",
+                            "parentId": "306617415754584062",
+                            "name": "achieve_record",
+                            "showAlways": true,
+                            "type": 0,
+                            "title": "点亮记录",
+                            "path": "/achieve/record",
+                            "component": "sorce/achieve",
+                            "icon": "md-radio",
+                            "url": "",
+                            "buttonType": "",
+                            "children": null,
+                            "permTypes": []
+                        },
+                        {
+                            "id": "306618021839900671",
+                            "parentId": "306617415754584062",
+                            "name": "medal",
+                            "showAlways": true,
+                            "type": 0,
+                            "title": "勋章列表",
+                            "path": "/achieve/medal",
+                            "component": "sorce/medal",
+                            "icon": "md-radio",
+                            "url": "",
+                            "buttonType": "",
+                            "children": null,
+                            "permTypes": []
+                        }
+                    ],
+                    "permTypes": null
+                },
+                {
                     "id": "306617415754584064",
                     "parentId": "125909152017944576",
                     "name": "accountMangament",

@@ -59,6 +59,18 @@
 			}
 		},
 		{
+			"path": "pages/achieve/achieve",
+			"style": {
+				"navigationBarTitleText": "我的成就"
+			}
+		},
+		{
+			"path": "pages/achieve/detail",
+			"style": {
+				"navigationBarTitleText": "勋章详情"
+			}
+		},
+		{
 			"path": "platforms/app-plus/about/about",
 			"style": {
 				"navigationBarTitleText": "关于"
@@ -98,7 +110,7 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "家庭积分",
-		"navigationBarBackgroundColor": "#00aaff",
+		"navigationBarBackgroundColor": "#55aaff",
 		"backgroundColor": "#EFEFEF"
 	},
 	"tabBar": {

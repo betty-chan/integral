@@ -10,10 +10,9 @@
 		<view style="height: 300rpx;margin: 20rpx;">
 			<view>{{selectIndex==myGradeIndex?"我的":gradeList[selectIndex].name}}等级</view>
 			<view v-if="gradeList&& gradeList[selectIndex].list">
-				<view v-for="(item,index) in gradeList[selectIndex].list" style="width: 100rpx;display: inline-block;">
-					<text class="list-icon">&#xe601;</text>
-					<view>{{item.description}}</view>
-				</view>
+				<ul>
+					<li v-for="(item,index) in gradeList[selectIndex].list">{{item.description}}</li>
+				</ul>
 			</view>
 		</view>
 	</view>
