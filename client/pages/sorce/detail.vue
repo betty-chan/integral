@@ -4,6 +4,7 @@
 			<image :src="$store.selectGoods.cover_img"  style="width: 100%;"></image>
 			<view>{{$store.selectGoods.title}}</view>
 			<view>{{$store.selectGoods.description}}</view>
+			<view>年龄要求：{{$store.selectGoods.limit?`${$store.selectGoods.limit}岁及以上`:'无'}}</view>
 			<image :src="$store.selectGoods.other_img"  style="width: 100%;"></image>
 		</view>
 		<view>

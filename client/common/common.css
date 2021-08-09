@@ -112,7 +112,7 @@ view.tag,
 }
 .tag-add {
   position: fixed;
-  bottom: 100upx;
+  bottom: 150rpx;
   right: 5upx;
 }
 .tag-add button {

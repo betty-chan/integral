@@ -4,14 +4,17 @@
 			<view class="center-list-item">
 				<text class="list-text">昵称</text>
 				<text class="navigat-arrow">&#xe65e;</text>
+				<text class="list-text" style="margin-right: 5rpx;float: right;">{{userInfo.username}}</text>
 			</view>
 			<view class="center-list-item">
 				<text class="list-text">邮箱</text>
 				<text class="navigat-arrow">&#xe65e;</text>
+				<text class="list-text" style="margin-right: 5rpx;float: right;">{{userInfo.email}}</text>
 			</view>
 			<view class="center-list-item">
 				<text class="list-text">出生年月</text>
 				<text class="navigat-arrow">&#xe65e;</text>
+				<text class="list-text" style="margin-right: 5rpx;float: right;">{{userInfo.birth}}</text>
 			</view>
 		</view>
 	</view>
@@ -32,11 +35,7 @@
 		},
 		methods: {
 			init(){
-			},
-			goOther(url){
-				uni.navigateTo({
-					url
-				})
+				this.userInfo = JSON.parse(uni.getStorageSync('userInfo'));
 			},
 		}
 	}

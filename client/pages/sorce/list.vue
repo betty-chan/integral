@@ -13,8 +13,10 @@
 		<view>
 		</view>
 		<view style="margin: 10rpx auto;">
-			<view style="width: 40%;display: inline-block;padding: 10rpx;" v-for="item in goodsList" @click="goDetail(item)">
-				<image :src="item.cover_img"  style="width: 100%;"></image>
+			<view style="width: 40%;display: inline-block;padding: 10px;" v-for="item in goodsList" @click="goDetail(item)">
+				<view>
+					<image :src="item.cover_img"  style="width:120px;height:120px ;"></image>
+				</view>
 				<text>{{item.title}}</text>
 				<text>{{item.limit}}</text>
 			</view>

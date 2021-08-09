@@ -1,9 +1,9 @@
 <template>
 	<view>
-		<view>
-			<image :src="$store.selectMedal.icon"  style="width: 80rpx;height: 80rpx;"></image>
-			<view>{{$store.selectMedal.name}}</view>
-			<view>{{$store.selectMedal.description}}</view>
+		<view style="padding: 10px;">
+			<view style="text-align: center;"><image :src="$store.selectMedal.icon"  style="width: 80px;height: 80px;"></image></view>
+			<view style="font-size: 20px;">{{$store.selectMedal.name}}</view>
+			<view style="font-size: 14px;">{{$store.selectMedal.description}}</view>
 		</view>
 	</view>
 </template>

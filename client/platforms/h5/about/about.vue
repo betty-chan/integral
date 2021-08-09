@@ -3,10 +3,9 @@
 		<view class="content">
 			<view class="qrcode">
 				<image src="https://img.cdn.aliyun.dcloud.net.cn/stream/qr/__UNI__FAD3FD9.png/256"></image>
-				<text class="tip">扫码体验看图App模板</text>
-			</view>
-			<view class="desc">
-				基于uni-app看图App模版开发。
+				<view class="version">
+				当前版本：0.0.1
+				</view>
 			</view>
 		</view>
 	</view>

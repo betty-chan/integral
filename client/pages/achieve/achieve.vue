@@ -1,8 +1,8 @@
 <template>
 	<view class="center">
-		<view style="margin: 10rpx auto;">
-			<view style="width: 40%;display: inline-block;padding: 10rpx;margin: 5rpx;" v-for="item in data" @click="goDetail(item)">
-				<view style="text-align: center;"><image v-if="item.icon" :src="item.user_id?item.icon:item.grey_icon"  style="width: 32rpx;height: 32rpx;"></image> </view>
+		<view>
+			<view style="width: 40%;display: inline-block;padding: 10rpx;margin: 5rpx;text-align: center;" v-for="item in data" @click="goDetail(item)">
+				<view><image v-if="item.icon" :src="item.user_id?item.icon:item.grey_icon"  style="width: 45px;height: 45px;"></image> </view>
 				<text style="white-space:nowrap;overflow-y:hidden ;">{{item.name}}</text>
 			</view>
 		</view>

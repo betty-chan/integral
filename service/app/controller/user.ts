@@ -12,7 +12,7 @@ class UserController extends Controller {
             username: user.username,
             email: user.email,
             avatarUrl: user.avatarUrl,
-            abstract: user.abstract,
+            birth: user.birth,
             account: user.email.replace(/@.*/, ''),
             mobile: user.mobile,
             sex: user.sex,
