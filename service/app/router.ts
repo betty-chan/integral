@@ -49,4 +49,8 @@ export default (app: Application) => {
   apiV2Router.get('/achieve/record', achieve.pageRecord);
   apiV2Router.post('/achieve/add', achieve.edit);
   apiV2Router.get('/achieve/delete', achieve.delete);
+
+  apiV2Router.get('/medal/list', achieve.pageMedal);
+  apiV2Router.post('/medal/edit', achieve.editMedal);
+  apiV2Router.get('/medal/delete', achieve.deleteMedal);
 }

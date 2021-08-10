@@ -1,6 +1,241 @@
-<template></template>
+<template>
+  <Card>
+    <Row class="operation">
+      <Button @click="add" type="primary" icon="md-add">添加</Button>
+      <Button @click="getDataList" icon="md-refresh">刷新</Button>
+    </Row>
+    <Row>
+      <Table
+        :loading="loading"
+        border
+        :columns="columns"
+        :data="data"
+        ref="table"
+        sortable="custom"
+        @on-sort-change="changeSort"
+      ></Table>
+    </Row>
+    <Row type="flex" justify="end" class="page">
+      <Page
+        :current="searchForm.pageNumber"
+        :total="total"
+        :page-size="searchForm.pageSize"
+        @on-change="changePage"
+        @on-page-size-change="changePageSize"
+        :page-size-opts="[10, 20, 50]"
+        size="small"
+        show-total
+        show-elevator
+        show-sizer
+      ></Page>
+    </Row>
+    <Modal
+      :title="modalTitle"
+      v-model="modalVisible"
+      :mask-closable="false"
+      :width="500"
+    >
+      <Form ref="form" :model="form" :label-width="80" :rules="formValidate">
+        <FormItem label="名称" prop="name">
+          <Input v-model="form.name" />
+        </FormItem>
+        <FormItem label="说明" prop="description">
+          <Input v-model="form.description" />
+        </FormItem>
+        <FormItem label="点亮图标" prop="icon">
+          <Input v-model="form.icon" />
+        </FormItem>
+        <FormItem label="普通图标" prop="grey_icon">
+          <Input v-model="form.grey_icon" />
+        </FormItem>
+      </Form>
+      <div slot="footer">
+        <Button type="text" @click="handleCancel">取消</Button>
+        <Button type="primary" :loading="submitLoading" @click="handleSubmit"
+          >提交</Button
+        >
+      </div>
+    </Modal>
+  </Card>
+</template>
+
 <script>
-export default {};
+export default {
+  mounted() {
+    this.init();
+  },
+  data() {
+    return {
+      loading: true, // 表单加载状态
+      modalTitle: "",
+      modalVisible: false,
+      submitLoading: false,
+      searchForm: {
+        pageNumber: 1, // 当前页数
+        pageSize: 10, // 页面大小
+        sort: "createTime", // 默认排序字段
+        order: "desc", // 默认排序方式
+      },
+      form: {
+        name: null,
+        description: null,
+        grey_icon: null,
+        icon: null,
+      },
+      formValidate: {
+        name: [{ required: true, message: "不能为空", trigger: "change" }],
+        description: [
+          { required: true, message: "不能为空", trigger: "change" },
+        ],
+        grey_icon: [{ required: true, message: "不能为空", trigger: "change" }],
+        icon: [{ required: true, message: "不能为空", trigger: "change" }],
+      },
+      columns: [
+        {
+          type: "index",
+          width: 60,
+          align: "center",
+        },
+        {
+          title: "名称",
+          key: "name",
+        },
+        {
+          title: "描述",
+          key: "description",
+        },
+        {
+          title: "操作",
+          key: "action",
+          align: "center",
+          render: (h, params) => {
+            return h("div", [
+              h(
+                "a",
+                {
+                  on: {
+                    click: () => {
+                      this.edit(params.row);
+                    },
+                  },
+                },
+                "编辑"
+              ),
+              h("Divider", {
+                props: {
+                  type: "vertical",
+                },
+              }),
+              h(
+                "a",
+                {
+                  on: {
+                    click: () => {
+                      this.remove(params.row);
+                    },
+                  },
+                },
+                "删除"
+              ),
+            ]);
+          },
+        },
+      ],
+      data: [], // 表单数据
+      total: 0, // 表单数据总数
+    };
+  },
+  methods: {
+    init() {
+      this.getDataList();
+    },
+    changePage(v) {
+      this.searchForm.pageNumber = v;
+      this.getDataList();
+    },
+    changePageSize(v) {
+      this.searchForm.pageSize = v;
+      this.getDataList();
+    },
+    changeSort(e) {
+      this.searchForm.sort = e.key;
+      this.searchForm.order = e.order;
+      if (e.order == "normal") {
+        this.searchForm.order = "";
+      }
+      this.getDataList();
+    },
+    getDataList() {
+      this.loading = true;
+      this.getRequest("/medal/list", this.searchForm).then((res) => {
+        this.loading = false;
+        if (res.success) {
+          this.data = res.data.rows;
+          this.total = res.data.total;
+        }
+      });
+    },
+    add() {
+      this.modalType = 0;
+      this.modalTitle = "添加";
+      this.$refs.form.resetFields();
+      delete this.form.id;
+      this.modalVisible = true;
+    },
+    edit(v) {
+      this.modalType = 1;
+      this.modalTitle = "编辑";
+      this.$refs.form.resetFields();
+      // 转换null为""
+      for (let attr in v) {
+        if (v[attr] == null) {
+          v[attr] = "";
+        }
+      }
+      let str = JSON.stringify(v);
+      let data = JSON.parse(str);
+      this.form = data;
+      this.modalVisible = true;
+    },
+    remove(v) {
+      this.$Modal.confirm({
+        title: "确认删除",
+        content: "您确认要删除 " + v.name + " ?",
+        loading: true,
+        onOk: () => {
+          this.getRequest("/medal/delete", { id: v.id }).then((res) => {
+            this.$Modal.remove();
+            if (res.success) {
+              this.$Message.success("操作成功");
+              this.getDataList();
+            }
+          });
+        },
+      });
+    },
+    handleCancel() {
+      this.modalVisible = false;
+    },
+    handleSubmit() {
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          this.submitLoading = true;
+          this.postRequest("/medal/edit", this.form).then((res) => {
+            this.submitLoading = false;
+            if (res.success) {
+              this.$Message.success("操作成功");
+              this.getDataList();
+              this.modalVisible = false;
+            }
+          });
+        }
+      });
+    },
+  },
+};
 </script>
 <style>
+.operation {
+  margin-bottom: 5px;
+}
 </style>

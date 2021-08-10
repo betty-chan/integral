@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 06/08/2021 18:18:27
+ Date: 10/08/2021 18:23:11
 */
 
 SET NAMES utf8mb4;
@@ -26,7 +26,7 @@ CREATE TABLE `t_achieve`  (
   `medal_id` int NULL DEFAULT NULL,
   `user_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_achieve
@@ -45,20 +45,20 @@ CREATE TABLE `t_goods`  (
   `cover_img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '封面图片',
   `other_img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '详细图片',
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '说明',
-  `limit` int(10) UNSIGNED ZEROFILL NULL DEFAULT NULL,
+  `limit` int(3) UNSIGNED ZEROFILL NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods
 -- ----------------------------
-INSERT INTO `t_goods` VALUES (4, '滑板', 50, 1, 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Skateboardvintage70s.JPG', NULL, '8岁+', NULL);
-INSERT INTO `t_goods` VALUES (7, '杰克电动牙刷', 75, 1, 'https://jf-asset1.10086.cn/pic/ware/202106/60cc6e26a1a9ff755ce23bab.jpg', NULL, '0', NULL);
-INSERT INTO `t_goods` VALUES (8, '蓝牙耳机', 100, 1, 'https://jf-asset1.10086.cn/pic/ware/5eb27e/c/5eb27ecd44d47f6f691403eb.jpg', NULL, '10+', NULL);
-INSERT INTO `t_goods` VALUES (9, '背包', 10, 1, 'https://jf-asset1.10086.cn/pic/ware/5f1e74/8/5f1e74883c98ae50c345cf28.jpg', '', '0', NULL);
-INSERT INTO `t_goods` VALUES (10, '红包', 100, 1, 'https://jf-asset2.10086.cn/pic/ware/202105/60ab606aa1a9ff755ce0439a.jpg', NULL, '0', NULL);
-INSERT INTO `t_goods` VALUES (11, '电话手表', 200, 1, 'https://jf-asset2.10086.cn/pic/ware/202012/5fe05098928df22e3f1bbdeb.jpg', NULL, '5+', NULL);
-INSERT INTO `t_goods` VALUES (12, '手机', 1000, 1, 'https://jf-asset2.10086.cn/pic/ware/202106/60cb1308a1a9ff755ce21891.jpg', NULL, '10+', NULL);
+INSERT INTO `t_goods` VALUES (4, '滑板', 50, 1, 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Skateboardvintage70s.JPG', NULL, '', NULL);
+INSERT INTO `t_goods` VALUES (7, '杰克电动牙刷', 75, 1, 'https://jf-asset1.10086.cn/pic/ware/202106/60cc6e26a1a9ff755ce23bab.jpg', NULL, '', NULL);
+INSERT INTO `t_goods` VALUES (8, '蓝牙耳机', 100, 1, 'https://jf-asset1.10086.cn/pic/ware/5eb27e/c/5eb27ecd44d47f6f691403eb.jpg', NULL, '', 010);
+INSERT INTO `t_goods` VALUES (9, '背包', 10, 1, 'https://jf-asset1.10086.cn/pic/ware/5f1e74/8/5f1e74883c98ae50c345cf28.jpg', '', '', NULL);
+INSERT INTO `t_goods` VALUES (10, '红包', 100, 1, 'https://jf-asset2.10086.cn/pic/ware/202105/60ab606aa1a9ff755ce0439a.jpg', NULL, '', NULL);
+INSERT INTO `t_goods` VALUES (11, '电话手表', 200, 1, 'https://jf-asset2.10086.cn/pic/ware/202012/5fe05098928df22e3f1bbdeb.jpg', NULL, '', 005);
+INSERT INTO `t_goods` VALUES (12, '手机', 1000, 1, 'https://jf-asset2.10086.cn/pic/ware/202106/60cb1308a1a9ff755ce21891.jpg', NULL, '', 010);
 
 -- ----------------------------
 -- Table structure for t_grade
@@ -93,13 +93,14 @@ CREATE TABLE `t_medal`  (
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `grey_icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_medal
 -- ----------------------------
 INSERT INTO `t_medal` VALUES (1, '营养小达人', '../../static/diet.png', '学习营养学课程，并输出笔记', '../../static/grey_diet.png');
 INSERT INTO `t_medal` VALUES (2, '环保勋章', '../../static/envira.png', '垃圾分类打卡7天以上', '../../static/grey_envira.png');
+INSERT INTO `t_medal` VALUES (3, '聪明消费', '../../static/buy.png', '观看10集消费主张', '../../static/grey_buy.png');
 
 -- ----------------------------
 -- Table structure for t_power
@@ -180,8 +181,8 @@ CREATE TABLE `t_user`  (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('1993', 'betty_chan@qq.com', '成名', '123456', 1, '管理员', NULL);
-INSERT INTO `t_user` VALUES ('1997', 'beibei@.qq.com', '贝贝', '123123', 0, NULL, NULL);
+INSERT INTO `t_user` VALUES ('1993', 'betty_chan@qq.com', '成名', '123456', 1, '管理员', '1996-05-08');
+INSERT INTO `t_user` VALUES ('1997', 'beibei@.qq.com', '贝贝', '123123', 0, NULL, '2021-07-23');
 
 -- ----------------------------
 -- Table structure for t_wish
@@ -194,7 +195,7 @@ CREATE TABLE `t_wish`  (
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_wish

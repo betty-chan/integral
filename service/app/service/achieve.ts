@@ -1,5 +1,5 @@
 import { Service } from 'egg';
-import { goodsParams } from './type/sroce-interface'
+import { achieveParams, medalParams } from './type/sroce-interface'
 
 function flattenObj(values) {
     let keys1 = Object.keys(values);
@@ -68,9 +68,42 @@ export default class achieveService extends Service {
         return result;
     }
     /*
+    * 分页查询勋章
+    */
+    public async findMedal(page) {
+        let { ctx } = this
+        return await ctx.model.TMedal.findAndCountAll({
+            offset: page.pageNumber - 1,
+            limit: +page.pageSize,
+        })
+    }
+    /*
+     * 添加或者更新
+     * @interface {sroceUserParams}
+     */
+    public async addMedal(obj: medalParams) {
+        let { ctx } = this
+        if (obj.id) {
+            return await ctx.model.TMedal.update(obj, {
+                where: {
+                    id: obj.id
+                }
+            });
+        } else {
+            return await ctx.model.TMedal.create(obj);
+        }
+    }
+    /*
+    * 删除
+    */
+    public async deleteMedal(query) {
+        let { ctx } = this
+        return await ctx.model.TMedal.destroy({ where: query });
+    }
+    /*
      * 添加或者更新
      */
-    public async addAchieve(obj: goodsParams) {
+    public async addAchieve(obj: achieveParams) {
         let { ctx } = this
         if (obj.id) {
             return await ctx.model.TAchieve.update(obj, {

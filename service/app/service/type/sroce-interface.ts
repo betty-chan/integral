@@ -34,3 +34,17 @@ export interface recordParams {
     goods_id: string,
     value?: number
 }
+
+export interface achieveParams {
+    id?: number,
+    user_id: string,
+    medal_id: string,
+}
+
+export interface medalParams {
+    id?: number,
+    description: string,
+    icon: string,
+    grey_icon?: string
+}
+
