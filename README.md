@@ -1,10 +1,10 @@
 
+[中文说明](./README.md) | [English introduction](./README_EN.md)
+
 # 简介
 
-[English introduction](./README_EN.md)
-
 ## 功能说明
-  本项目主要打造了家庭中的积分系统——家庭慧，项目分为client、admin、service三个子项目。目的是实现儿童通过正向的行为获取积分增长，可获取一些行为特权、愿望实现、积分兑换等功能。
+  本项目主要打造了家庭中的积分系统——家庭慧，项目分为client、admin、service三个子项目。目的是通过引导儿童的正向的行为获取积分增长后，可获取一些行为特权、愿望实现、积分兑换、成就勋章等功能。
   > 如果对您有帮助，您可以点右上角 "Star" 支持一下 谢谢！ ^_^  
   > 如果你也想参与，请fork项目并一起交流吧
 
@@ -119,3 +119,4 @@ class Upload extends React.Component{
 待补充
 
 # 项目运营说明
+待补充

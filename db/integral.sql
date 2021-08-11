@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 10/08/2021 18:23:11
+ Date: 11/08/2021 17:21:42
 */
 
 SET NAMES utf8mb4;
@@ -162,6 +162,7 @@ INSERT INTO `t_sorce` VALUES (3, '1993', 5, '2021-07-23 03:42:52', '做家务', 
 INSERT INTO `t_sorce` VALUES (4, '1997', 5, '2021-07-23 06:23:39', '签到', '2', '2021-07-23 06:23:39', NULL);
 INSERT INTO `t_sorce` VALUES (12, '1993', -10, '2021-07-29 06:25:47', '积分兑换', '2', '2021-07-29 06:25:47', NULL);
 INSERT INTO `t_sorce` VALUES (13, '1993', -10, '2021-07-29 06:28:16', '积分兑换', '2', '2021-07-29 06:28:16', NULL);
+INSERT INTO `t_sorce` VALUES (14, '1993', 20, '2021-08-11 01:35:09', '课程学习', '2', '2021-08-11 01:35:09', NULL);
 
 -- ----------------------------
 -- Table structure for t_user
@@ -175,14 +176,19 @@ CREATE TABLE `t_user`  (
   `is_admin` tinyint NULL DEFAULT NULL COMMENT '是否管理员',
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户标签',
   `birth` date NULL DEFAULT NULL COMMENT '出生年月',
+  `sex` tinyint NULL DEFAULT NULL COMMENT '性别',
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('1993', 'betty_chan@qq.com', '成名', '123456', 1, '管理员', '1996-05-08');
-INSERT INTO `t_user` VALUES ('1997', 'beibei@.qq.com', '贝贝', '123123', 0, NULL, '2021-07-23');
+INSERT INTO `t_user` VALUES ('1990', 'wuwantian@gmail.com', '江南', '111111', 0, NULL, '2021-08-02', 0, '2021-08-11 03:25:45', '2021-08-11 03:25:45');
+INSERT INTO `t_user` VALUES ('1993', 'huahua@163.com', '贝贝', '1234567', 1, '', '2021-07-23', 1, NULL, NULL);
+INSERT INTO `t_user` VALUES ('1995', '466150516@qq.com', '巴比', '111111', 1, NULL, '2021-08-11', 0, NULL, NULL);
+INSERT INTO `t_user` VALUES ('1997', 'beibei@qq.com', '贝贝', '123123', 0, NULL, '2021-07-23', 1, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for t_wish
