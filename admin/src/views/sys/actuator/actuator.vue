@@ -1,6 +1,3 @@
-<style lang="less">
-@import "./actuator.less";
-</style>
 <template>
   <div class="search">
     <Card>

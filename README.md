@@ -35,6 +35,7 @@
 
 对于service
 - egg.js
+- TypeScript
 - mysql
 
 ## 部分功能截图

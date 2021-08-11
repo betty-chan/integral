@@ -5,9 +5,7 @@
 <template>
   <div>
     <Card class="change-pass">
-      <p slot="title">
-        <Icon type="key"></Icon>修改密码
-      </p>
+      <p slot="title"><Icon type="key"></Icon>修改密码</p>
       <div>
         <Form
           ref="editPasswordForm"
@@ -15,24 +13,36 @@
           :label-width="100"
           label-position="right"
           :rules="passwordValidate"
-          style="width:450px"
+          style="width: 450px"
         >
           <FormItem label="原密码" prop="oldPass">
-            <Input type="password" v-model="editPasswordForm.oldPass" placeholder="请输入现在使用的密码"></Input>
+            <Input
+              type="password"
+              v-model="editPasswordForm.oldPass"
+              placeholder="请输入现在使用的密码"
+            ></Input>
           </FormItem>
           <FormItem label="新密码" prop="newPass">
-            <SetPassword v-model="editPasswordForm.newPass" @on-change="changeInputPass" />
+            <SetPassword
+              v-model="editPasswordForm.newPass"
+              @on-change="changeInputPass"
+            />
           </FormItem>
           <FormItem label="确认新密码" prop="rePass">
-            <Input type="password" v-model="editPasswordForm.rePass" placeholder="请再次输入新密码"></Input>
+            <Input
+              type="password"
+              v-model="editPasswordForm.rePass"
+              placeholder="请再次输入新密码"
+            ></Input>
           </FormItem>
           <FormItem>
             <Button
               type="primary"
-              style="width: 100px;margin-right:5px"
+              style="width: 100px; margin-right: 5px"
               :loading="savePassLoading"
               @click="saveEditPass"
-            >保存</Button>
+              >保存</Button
+            >
             <Button @click="cancelEditPass">取消</Button>
           </FormItem>
         </Form>
@@ -47,7 +57,7 @@ import { changePass } from "@/api/index";
 export default {
   name: "change_pass",
   components: {
-    SetPassword
+    SetPassword,
   },
   data() {
     const valideRePassword = (rule, value, callback) => {
@@ -62,7 +72,7 @@ export default {
       editPasswordForm: {
         oldPass: "",
         newPass: "",
-        rePass: ""
+        rePass: "",
       },
       strength: "",
       passwordValidate: {
@@ -70,38 +80,38 @@ export default {
           {
             required: true,
             message: "请输入原密码",
-            trigger: "change"
-          }
+            trigger: "change",
+          },
         ],
         newPass: [
           {
             required: true,
             message: "请输入新密码",
-            trigger: "change"
+            trigger: "change",
           },
           {
             min: 6,
             message: "请至少输入6个字符",
-            trigger: "change"
+            trigger: "change",
           },
           {
             max: 32,
             message: "最多输入32个字符",
-            trigger: "change"
-          }
+            trigger: "change",
+          },
         ],
         rePass: [
           {
             required: true,
             message: "请再次输入新密码",
-            trigger: "change"
+            trigger: "change",
           },
           {
             validator: valideRePassword,
-            trigger: "change"
-          }
-        ]
-      }
+            trigger: "change",
+          },
+        ],
+      },
     };
   },
   methods: {
@@ -111,13 +121,12 @@ export default {
     saveEditPass() {
       let params = {
         password: this.editPasswordForm.oldPass,
-        newPass: this.editPasswordForm.newPass,
-        passStrength: this.strength
+        newPassword: this.editPasswordForm.newPass,
       };
-      this.$refs["editPasswordForm"].validate(valid => {
+      this.$refs["editPasswordForm"].validate((valid) => {
         if (valid) {
           this.savePassLoading = true;
-          changePass(params).then(res => {
+          this.postRequest("/user/update", params).then((res) => {
             this.savePassLoading = false;
             if (res.success) {
               this.$Modal.success({
@@ -127,9 +136,9 @@ export default {
                   this.$store.commit("logout", this);
                   this.$store.commit("clearOpenedSubmenu");
                   this.$router.push({
-                    name: "login"
+                    name: "login",
                   });
-                }
+                },
               });
             }
           });
@@ -149,10 +158,10 @@ export default {
         lastPageName = this.$store.state.app.pageOpenedList[0].name;
       }
       this.$router.push({
-        name: lastPageName
+        name: lastPageName,
       });
-    }
+    },
   },
-  mounted() {}
+  mounted() {},
 };
 </script>

@@ -5,7 +5,10 @@ const uuid = require('uuid');
 interface RegisterParams {
     username: string,
     password: string,
-    userId?: string
+    userId?: string,
+    email?: string,
+    birth?: string,
+    is_admin?: number
 }
 
 interface LoginParams {
@@ -101,6 +104,18 @@ export default class UserService extends Service {
     public async getUserList() {
         return this.ctx.model.TUser.findAll({
             attributes: ['id', ['username', 'name']]
+        })
+    }
+
+    /**
+     * 查找所有用户
+     * @return {Promise[user]} 承载用户的 Promise 对象
+     */
+    public async page(page) {
+        return this.ctx.model.TUser.findAndCountAll({
+            offset: page.pageNumber - 1,
+            limit: +page.pageSize,
+            attributes: ['id', 'email', 'username', 'is_admin', 'birth', 'sex', 'created_at', 'updated_at']
         })
     }
 }

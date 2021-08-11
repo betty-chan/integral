@@ -28,15 +28,24 @@ class UserController extends Controller {
         ctx.returnBody(200, "获取成功", userInfo)
     }
 
+    // 获取用户信息
+    public async pageUser() {
+        const { ctx } = this;
+        const page = ctx.request.query;
+        let userInfo = await this.service.user.page(page)
+        ctx.returnBody(200, "获取成功", userInfo)
+    }
+
     // 更新用户信息
     public async updateUserInfo() {
         const { ctx } = this
-        let userId = ctx.user.userId
+        let userId = ctx.request.body.id || ctx.user.userId;
+        delete ctx.request.body.id;
         let contentBody = ctx.request.body
         // 更新已使用的他人邮箱地址
         if (contentBody.email) {
             let result = await this.service.user.getUserByMail(contentBody.email)
-            if (result && result.userId !== userId) {
+            if (result && result.id !== userId) {
                 ctx.returnBody(400, "该邮箱已被其他账户使用")
                 return
             }
@@ -59,57 +68,6 @@ class UserController extends Controller {
         } else {
             ctx.returnBody(200, "更新成功")
         }
-    }
-
-    // 获取用户关注、粉丝、帖子数量
-    public async userPersonalInfo() {
-        const { ctx } = this
-        let userId = ctx.query.userId || ctx.user.userId
-        // 用户帖子
-        let topics = await ctx.service.topic.queryTopicCounts({
-            userId
-        })
-        let topicList: any = [];
-        // 将所有帖子处理完毕
-        for (let topic of topics.rows) {
-            let item = await ctx.service.topic.topicDetailHanderl(topic.topicId)
-            topicList.push(item)
-        }
-        // 用户粉丝
-        let fansCounts = await ctx.service.follow.findFollowCounts({
-            userId,
-            status: 1
-        })
-        // 用户关注数
-        let followCounts = await ctx.service.follow.findFollowCounts({
-            followedId: userId,
-            status: 1
-        })
-        // 非本人查询是否关注了登录人
-        let isSelf = !ctx.query.userId || ctx.query.userId === ctx.user.userId
-        // 查询已关注用户
-        let followList = []
-        if (!isSelf) {
-            followList = await this.ctx.model.Follow.findAll({
-                attributes: ['userId'],
-                where: {
-                    followedId: ctx.user.userId,
-                    userId: ctx.query.userId,
-                    status: 1
-                }
-            })
-        }
-
-        ctx.returnBody(200, "获取成功", {
-            topic: {
-                counts: topics.count,
-                topicList
-            },
-            followCounts: followCounts.count,
-            fansCounts: fansCounts.count,
-            isSelf,
-            hasFollow: followList.length > 0
-        })
     }
 }
 

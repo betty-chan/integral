@@ -56,10 +56,14 @@ axios.interceptors.response.use(response => {
     }
 
     return data;
-}, (err) => {
+}, (error) => {
     // 返回状态码不为200时候的错误处理
-    Message.error(err.toString());
-    return Promise.resolve(err);
+    if (error.response) {
+        Message.error(error.response.data.message);
+        return Promise.resolve(error.response.data);
+    }
+    Message.error(error.toString());
+    return Promise.resolve(error);
 });
 
 export const getRequest = (url, params) => {

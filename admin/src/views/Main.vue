@@ -132,7 +132,6 @@
               <DropdownItem name="en-US">English</DropdownItem>
             </DropdownMenu>
           </Dropdown>
-          <lock-screen></lock-screen>
           <message-tip v-model="mesCount"></message-tip>
           <div class="user-dropdown-menu-con">
             <Row
@@ -191,7 +190,6 @@ import shrinkableMenu from "./main-components/shrinkable-menu/shrinkable-menu.vu
 import tagsPageOpened from "./main-components/tags-page-opened.vue";
 import breadcrumbNav from "./main-components/breadcrumb-nav.vue";
 import fullScreen from "./main-components/fullscreen.vue";
-import lockScreen from "./main-components/lockscreen/lockscreen.vue";
 import messageTip from "./main-components/message-tip.vue";
 import circleLoading from "@/views/my-components/xboot/circle-loading.vue";
 import Cookies from "js-cookie";
@@ -202,7 +200,6 @@ export default {
     tagsPageOpened,
     breadcrumbNav,
     fullScreen,
-    lockScreen,
     messageTip,
     circleLoading,
   },

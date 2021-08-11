@@ -33,6 +33,18 @@ module.exports = app => {
       type: DataTypes.DATE,
       allowNull: true
     },
+    sex: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
+    },
   }, {
     tableName: 't_user',
     timestamps: false,

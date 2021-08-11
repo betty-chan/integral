@@ -18,18 +18,10 @@
             <Col span="12">
               <FormItem label="用户ID">
                 {{ form.id }}
-                <Tooltip trigger="hover" placement="right" content="账户已禁用">
-                  <Icon
-                    v-show="form.status == -1"
-                    type="md-lock"
-                    size="18"
-                    style="margin-left: 10px; cursor: pointer"
-                  />
-                </Tooltip>
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="登录账号">
+              <FormItem label="用户名">
                 {{ form.username }}
                 <Tooltip
                   trigger="hover"
@@ -56,12 +48,13 @@
         >
           <Row :gutter="32" v-if="type == '2'">
             <Col span="12">
-              <FormItem label="登录账号" prop="username">
-                <Input
-                  v-model="form.username"
-                  autocomplete="off"
-                  :maxlength="16"
-                />
+              <FormItem label="用户ID" prop="id">
+                <Input v-model="form.id" maxlength="4" />
+              </FormItem>
+            </Col>
+            <Col span="12">
+              <FormItem label="用户名" prop="username">
+                <Input v-model="form.username" />
               </FormItem>
             </Col>
             <Col span="12">
@@ -72,17 +65,10 @@
           </Row>
           <Row :gutter="32">
             <Col span="12">
-              <FormItem label="用户名" prop="nickname">
-                <Input v-model="form.nickname" />
-              </FormItem>
-            </Col>
-            <Col span="12">
               <FormItem label="邮箱" prop="email">
                 <Input v-model="form.email" />
               </FormItem>
             </Col>
-          </Row>
-          <Row :gutter="32">
             <Col span="12">
               <FormItem label="手机号" prop="mobile">
                 <Input v-model="form.mobile" />
@@ -90,22 +76,15 @@
             </Col>
             <Col span="12">
               <FormItem label="性别">
-                <dict dict="sex" v-model="form.sex" transfer/>
-              </FormItem>
-            </Col>
-          </Row>
-          <Row :gutter="32">
-            <Col span="12">
-              <FormItem label="所属部门">
-                <department-tree-choose
-                  @on-change="handleSelectDepTree"
-                  ref="depTree"
-                ></department-tree-choose>
+                <Select v-model="form.sex" transfer placeholder="请选择">
+                  <Option :value="0">男</Option>
+                  <Option :value="1">女</Option>
+                </Select>
               </FormItem>
             </Col>
             <Col span="12">
               <FormItem label="用户类型">
-                <Select v-model="form.type" transfer placeholder="请选择">
+                <Select v-model="form.is_admin" transfer placeholder="请选择">
                   <Option :value="0">普通用户</Option>
                   <Option :value="1">管理员</Option>
                 </Select>
@@ -119,42 +98,6 @@
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="角色分配" prop="roleIds">
-                <Select v-model="form.roleIds" multiple transfer>
-                  <Option
-                    v-for="item in roleList"
-                    :value="item.id"
-                    :key="item.id"
-                    :label="item.name"
-                  >
-                    <span style="margin-right: 10px">{{ item.name }}</span>
-                    <span style="color: #ccc">{{ item.description }}</span>
-                  </Option>
-                </Select>
-              </FormItem>
-            </Col>
-          </Row>
-          <Divider />
-          <p class="drawer-title">个人资料</p>
-          <Row :gutter="32">
-            <Col span="12">
-              <FormItem label="所在地区" prop="address">
-                <al-cascader
-                  v-model="form.address"
-                  data-type="name"
-                  level="2"
-                  transfer
-                />
-              </FormItem>
-            </Col>
-            <Col span="12">
-              <FormItem label="街道地址">
-                <Input v-model="form.street" />
-              </FormItem>
-            </Col>
-          </Row>
-          <Row :gutter="32">
-            <Col span="12">
               <FormItem label="生日" prop="birth">
                 <DatePicker
                   v-model="form.birth"
@@ -164,12 +107,8 @@
                 ></DatePicker>
               </FormItem>
             </Col>
-            <Col span="24">
-              <FormItem label="简介">
-                <Input type="textarea" v-model="form.description" :rows="4" />
-              </FormItem>
-            </Col>
           </Row>
+          <Divider />
         </Form>
       </div>
       <div class="drawer-footer br" v-show="type != '0'">
@@ -183,23 +122,17 @@
 </template>
 
 <script>
-import { getAllRoleList, addUser, editUser } from "@/api/index";
-import {
-  validateUsername,
-  validateMobile,
-  validatePassword,
-} from "@/libs/validate";
-import departmentTreeChoose from "@/views/my-components/xboot/department-tree-choose";
+import { addUser, editUser } from "@/api/index";
+import { validateUsername, validatePassword } from "@/libs/validate";
 import uploadPicInput from "@/views/my-components/xboot/upload-pic-input";
 import SetPassword from "@/views/my-components/xboot/set-password";
 import dict from "@/views/my-components/xboot/dict";
 export default {
   name: "user",
   components: {
-    departmentTreeChoose,
     uploadPicInput,
     SetPassword,
-    dict
+    dict,
   },
   props: {
     value: {
@@ -214,9 +147,19 @@ export default {
       default: "0",
     },
   },
+  mounted() {
+    this.init();
+  },
+  watch: {
+    value(val) {
+      this.setCurrentValue(val);
+    },
+    visible(value) {
+      this.$emit("input", value);
+    },
+  },
   data() {
     return {
-      roleList: [],
       visible: this.value,
       title: "",
       passColor: "",
@@ -234,10 +177,6 @@ export default {
         nickname: [
           { required: true, message: "请输入用户名", trigger: "change" },
         ],
-        mobile: [
-          { required: true, message: "请输入手机号", trigger: "change" },
-          { validator: validateMobile, trigger: "change" },
-        ],
         password: [
           { required: true, message: "请输入密码", trigger: "change" },
           { validator: validatePassword, trigger: "change" },
@@ -245,24 +184,12 @@ export default {
         email: [
           { required: true, message: "请输入邮箱地址" },
           { type: "email", message: "邮箱格式不正确" },
-        ]
+        ],
       },
     };
   },
   methods: {
-    init() {
-      this.getRoleList();
-    },
-    getRoleList() {
-      getAllRoleList().then((res) => {
-        if (res.success) {
-          this.roleList = res.result;
-        }
-      });
-    },
-    handleSelectDepTree(v) {
-      this.form.departmentId = v;
-    },
+    init() {},
     changePass(v, grade, strength) {
       this.form.passStrength = strength;
     },
@@ -275,7 +202,15 @@ export default {
           if (this.type == "1") {
             // 编辑
             this.submitLoading = true;
-            editUser(this.form).then((res) => {
+            let params = {
+              id: this.form.id,
+              email: this.form.email,
+              username: this.form.username,
+              is_admin: this.form.is_admin,
+              birth: this.form.birth,
+              sex: this.form.sex,
+            };
+            this.postRequest("/user/update", params).then((res) => {
               this.submitLoading = false;
               if (res.success) {
                 this.$Message.success("操作成功");
@@ -286,7 +221,7 @@ export default {
           } else {
             // 添加
             this.submitLoading = true;
-            addUser(this.form).then((res) => {
+            this.postRequest("/login/register", this.form).then((res) => {
               this.submitLoading = false;
               if (res.success) {
                 this.$Message.success("操作成功");
@@ -319,22 +254,6 @@ export default {
       if (this.type == "0" || this.type == "1") {
         // 回显数据
         let data = this.data;
-        // 地址
-        if (data.address) {
-          data.address = data.address.split(",");
-        } else {
-          data.address = [];
-        }
-        // 部门
-        this.$refs.depTree.setData(data.departmentId, data.departmentTitle);
-        // 角色
-        let selectRolesId = [];
-        data.roles.forEach(function (e) {
-          selectRolesId.push(e.id);
-        });
-        data.roleIds = selectRolesId;
-        delete data.roles;
-        delete data.permissions;
         // 密码强度
         if (data.passStrength == "弱") {
           this.passColor = "#ed3f14";
@@ -347,26 +266,14 @@ export default {
         this.form = data;
       } else {
         // 添加
-        this.$refs.depTree.setData("", "");
         this.form = {
           type: 0,
           sex: "",
-          address: []
+          address: [],
         };
       }
       this.visible = value;
     },
-  },
-  watch: {
-    value(val) {
-      this.setCurrentValue(val);
-    },
-    visible(value) {
-      this.$emit("input", value);
-    },
-  },
-  mounted() {
-    this.init();
   },
 };
 </script>

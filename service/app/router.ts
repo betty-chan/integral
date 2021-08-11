@@ -12,9 +12,9 @@ export default (app: Application) => {
 
   // user
   apiV2Router.get('/user/info', user.userInfo); // 用户信息
-  apiV2Router.get('/user/personal', user.userPersonalInfo); // 用户信息
-  apiV2Router.post('/user/update', user.updateUserInfo); // 用户信息
-  apiV2Router.get('/user/list', user.getUserList); // 用户信息
+  apiV2Router.post('/user/update', user.updateUserInfo); // 修改密码
+  apiV2Router.get('/user/list', user.getUserList); // 全部用户列表
+  apiV2Router.get('/user/page', user.pageUser); // 用户列表
 
   // handle
   apiV2Router.get('/handle/upload/get-token', handle.getQiniuToken); // 退出登录

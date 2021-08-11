@@ -219,21 +219,6 @@
                     "buttonType": "",
                     "children": [
                         {
-                            "id": "306618021839900672",
-                            "parentId": "306617415754584064",
-                            "name": "domainManagement",
-                            "showAlways": true,
-                            "type": 0,
-                            "title": "添加账户",
-                            "path": "addAccount",
-                            "component": "accountManage/addAccount",
-                            "icon": "md-person-add",
-                            "url": "",
-                            "buttonType": "",
-                            "children": null,
-                            "permTypes": []
-                        },
-                        {
                             "id": "306618315210493952",
                             "parentId": "306617415754584064",
                             "name": "companyMangement",
@@ -241,7 +226,7 @@
                             "type": 0,
                             "title": "账户列表",
                             "path": "listAccount",
-                            "component": "accountManage/accountTable",
+                            "component": "sys/user-manage/userManage",
                             "icon": "ios-contact",
                             "url": null,
                             "buttonType": "",
