@@ -38,7 +38,8 @@
 ### admin  
 待补充  
 ### client  
-待补充  
+![星愿](https://github.com/betty-chan/integral/blob/master/public/星愿.png)
+![用户中心](https://github.com/betty-chan/integral/blob/master/public/用户中心.png) 
 
 ## 运行项目
 * git clone https://github.com/betty-chan/integral
